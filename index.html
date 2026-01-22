@@ -3,824 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano de Desenvolvimento Individual</title>
+    <title>PDI - Plano de Desenvolvimento Individual</title>
     
-    <!-- Carregando Tailwind CSS (Estilos) -->
+    <!-- Tailwind CSS (Estilização) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Carregando React e ReactDOM (Motor da Aplicação) -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- Carregando Babel (Para entender o código React no navegador) -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- Fontes Google (Inter) -->
+    <!-- Google Fonts (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Animações suaves */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
         
-        /* Personalização da barra de rolagem */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        /* Transições Suaves */
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Esconder scrollbar padrão mas permitir scroll */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Estilo dos Inputs Focados */
+        .input-focus:focus { 
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2); 
+            border-color: #4f46e5;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 selection:bg-indigo-100 selection:text-indigo-900">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <div id="root"></div>
+    <!-- HEADER -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-indigo-100 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="bg-indigo-600 w-10 h-10 rounded-lg flex items-center justify-center shadow-md shadow-indigo-200">
+                    <!-- Icon TrendingUp -->
+                    <svg class="text-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div>
+                    <h1 class="font-bold text-xl md:text-2xl text-blue-900 tracking-tight leading-none" id="app-title">Plano de Desenvolvimento Individual</h1>
+                </div>
+            </div>
+            <button onclick="toggleLanguage()" class="text-xs font-bold text-slate-500 hover:text-indigo-600 bg-slate-100 px-4 py-2 rounded-full transition-colors flex items-center gap-2 border border-slate-200">
+                <!-- Icon Globe -->
+                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                <span id="lang-label">PT</span>
+            </button>
+        </div>
+    </header>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-6 py-10 pb-32">
+        
+        <!-- STEP 0: WELCOME -->
+        <div id="step-0" class="step-content fade-in max-w-2xl mx-auto text-center py-8">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100 mb-6 inline-block" data-key="welcome_badge">Sua Carreira</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-6 tracking-tight" data-key="welcome_title">Vamos desenhar seu futuro?</h2>
+            <p class="text-xl text-slate-500 leading-relaxed mb-10" data-key="welcome_desc">Este é um espaço seguro para você refletir sobre onde está e onde quer chegar. O PDI não é uma formalidade, é a estratégia da sua evolução.</p>
+            
+            <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 flex gap-4 text-left mb-10 items-start">
+                <div class="bg-white p-2 rounded-lg h-fit shadow-sm text-indigo-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+                <p class="text-indigo-900 font-medium text-sm leading-relaxed" data-key="welcome_note">Lembre-se: Você é o protagonista. Use este rascunho para estruturar suas ideias antes de conversar com sua liderança.</p>
+            </div>
+            
+            <button onclick="nextStep()" class="bg-slate-900 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-slate-800 hover:scale-105 transition-all shadow-xl flex items-center gap-2 mx-auto">
+                <span data-key="btn_start">Iniciar Jornada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+        </div>
 
-        // --- ÍCONES (SVG Nativos para garantir funcionamento sem bibliotecas externas) ---
-        const Icons = {
-            ArrowRight: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>,
-            ArrowLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>,
-            CheckCircle: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>,
-            Target: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>,
-            Lightbulb: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.4 1.5-3.8 0-3.2-2.7-5.5-6-5.5S6 4.5 6 7.7c0 1.4.5 2.8 1.5 3.8.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>,
-            Globe: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>,
-            RefreshCcw: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>,
-            Download: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>,
-            AlertCircle: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>,
-            ChevronRight: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>,
-            Star: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-            Calendar: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>,
-            Layout: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg>,
-            CornerDownRight: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>,
-            Flag: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>,
-            CalendarClock: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M15.5 17.5 17 19l2.5-1.5"/><circle cx="17" cy="18" r="4"/></svg>,
-            TrendingUp: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>,
-            Sparkles: ({ className }) => <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H3"/></svg>,
-        };
+        <!-- STEP 1: DIRECTION -->
+        <div id="step-1" class="step-content hidden fade-in max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step1_badge">Direção</span>
+                <h2 class="text-3xl font-bold text-slate-800 mt-4 mb-2" data-key="step1_title">Qual é o seu foco?</h2>
+                <p class="text-slate-500" data-key="step1_sub">Definir o destino é o primeiro passo para uma jornada de sucesso.</p>
+            </div>
 
-        // --- DADOS DO APLICATIVO ---
+            <!-- Meta Card -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 mb-6">
+                <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide" data-key="label_goal">Meta de Desenvolvimento</label>
+                <div class="text-sm text-slate-500 mb-4 leading-relaxed border-l-4 border-indigo-200 pl-3 bg-slate-50 p-2 rounded-r-lg" data-key="helper_goal">
+                    O que você quer conquistar? Pode ser melhorar sua performance atual, preparar-se para um futuro cargo ou potencializar um talento natural que você já tem.
+                </div>
+                <textarea id="input-goal" class="input-focus w-full p-4 text-lg bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-700 min-h-[120px] resize-none transition-all placeholder:text-slate-400" placeholder="Ex: Quero assumir uma posição de coordenação em 1 ano..."></textarea>
+            </div>
 
-        const COMPETENCIES_LIST = [
-            "Liderança Ágil", "Inteligência Emocional", "Comunicação Assertiva", 
-            "Pensamento Estratégico", "Gestão de Conflitos", "Análise de Dados",
-            "Gestão de Projetos", "Inovação e Criatividade", "Visão de Negócio",
-            "Trabalho em Equipe", "Resiliência / Adaptabilidade", "Gestão do Tempo",
-            "Negociação", "Orientação para Resultados", "Autogestão"
-        ];
+            <!-- Competencia Card -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                <div class="flex justify-between items-center mb-3">
+                    <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide" data-key="label_comp">Competência Principal</label>
+                    <button onclick="openModal('competencies')" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1">
+                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <span data-key="btn_comp_ideas">Ver sugestões</span>
+                    </button>
+                </div>
+                <p class="text-sm text-slate-500 mb-4" data-key="helper_comp">Qual habilidade será a chave para atingir essa meta? Se tiver dúvida, consulte nossa lista de referência.</p>
+                <input id="input-comp" type="text" class="input-focus w-full p-4 text-lg bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-700 transition-all placeholder:text-slate-400" placeholder="Ex: Liderança Situacional...">
+            </div>
+        </div>
 
-        const IDEAS_CONTENT = {
-            section70: {
-                title: "70% - Experiência (Na Prática)",
-                desc: "Maior impacto no desenvolvimento. Aprender fazendo.",
-                items: [
-                    "Realizar Shadowing (observar dia a dia de outro profissional)",
-                    "Realizar Job Rotation (rotação entre áreas)",
-                    "Participar de projetos específicos ou transversais",
-                    "Atuar em situações de crise",
-                    "Ajudar no lançamento de novo programa/iniciativa",
-                    "Resolver um projeto parado ou problema crônico",
-                    "Pesquisar e aplicar melhores práticas no trabalho",
-                    "Melhoria de sistemas e processos",
-                    "Ministrar treinamento para a equipe",
-                    "Preparar e facilitar reuniões",
-                    "Assumir liderança de um grupo de projeto",
-                    "Participar de visitas em clientes",
-                    "Assumir papel em processos orçamentários",
-                    "Cobertura de férias ou licenças"
-                ]
+        <!-- STEP 2: METHODOLOGY (70/20/10) -->
+        <div id="step-2" class="step-content hidden fade-in max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+                <div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step2_badge">Metodologia</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-4 mb-2" data-key="step2_title">Como vamos chegar lá?</h2>
+                    
+                    <div class="flex gap-3 mt-4 text-slate-500 max-w-2xl bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                        <!-- Icon Info -->
+                        <svg class="w-5 h-5 flex-shrink-0 mt-1 text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        <div>
+                            <strong class="block text-slate-700 text-sm mb-1" data-key="step2_intro_title">A Regra 70/20/10</strong>
+                            <p class="text-sm leading-relaxed" data-key="step2_intro_desc">A ciência mostra que aprendemos mais praticando do que estudando. Para seu plano ser robusto, ele precisa cobrir três frentes:</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="openModal('ideas')" class="bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-xl font-bold hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-sm flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.4 1.5-3.8 0-3.2-2.7-5.5-6-5.5S6 4.5 6 7.7c0 1.4.5 2.8 1.5 3.8.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                    <span data-key="btn_ideas">Banco de Ideias Completo</span>
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- 70% -->
+                <div class="bg-white rounded-3xl p-1 border-t-4 border-emerald-500 shadow-sm hover:shadow-lg transition-all">
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-2xl font-bold text-emerald-600">70%</span>
+                            <span class="text-xs font-bold uppercase text-emerald-800 bg-emerald-100 px-2 py-1 rounded" data-key="label_70">Experiência</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-6 min-h-[40px]" data-key="expl_70">Aprender fazendo, resolvendo problemas reais.</p>
+                        <div class="bg-slate-50 rounded-2xl p-2 border border-slate-100">
+                            <textarea id="input-70" class="input-focus w-full bg-transparent border-0 p-3 text-slate-700 outline-none resize-none h-48 text-sm placeholder:text-slate-400" placeholder="Qual desafio prático você vai assumir?"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- 20% -->
+                <div class="bg-white rounded-3xl p-1 border-t-4 border-amber-500 shadow-sm hover:shadow-lg transition-all">
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-2xl font-bold text-amber-500">20%</span>
+                            <span class="text-xs font-bold uppercase text-amber-800 bg-amber-100 px-2 py-1 rounded" data-key="label_20">Relacionamentos</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-6 min-h-[40px]" data-key="expl_20">Aprender com os outros, trocando experiências.</p>
+                        <div class="bg-slate-50 rounded-2xl p-2 border border-slate-100">
+                            <textarea id="input-20" class="input-focus w-full bg-transparent border-0 p-3 text-slate-700 outline-none resize-none h-48 text-sm placeholder:text-slate-400" placeholder="Quem será seu mentor ou fonte de feedback?"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- 10% -->
+                <div class="bg-white rounded-3xl p-1 border-t-4 border-blue-500 shadow-sm hover:shadow-lg transition-all">
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-2xl font-bold text-blue-500">10%</span>
+                            <span class="text-xs font-bold uppercase text-blue-800 bg-blue-100 px-2 py-1 rounded" data-key="label_10">Educação</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-6 min-h-[40px]" data-key="expl_10">Cursos, livros e teoria.</p>
+                        <div class="bg-slate-50 rounded-2xl p-2 border border-slate-100">
+                            <textarea id="input-10" class="input-focus w-full bg-transparent border-0 p-3 text-slate-700 outline-none resize-none h-48 text-sm placeholder:text-slate-400" placeholder="O que você precisa estudar?"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: METRICS -->
+        <div id="step-3" class="step-content hidden fade-in max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step3_badge">Compromisso</span>
+                <h2 class="text-3xl font-bold text-slate-800 mt-4 mb-2" data-key="step3_title">Indicadores e Prazos</h2>
+                <p class="text-slate-500" data-key="step3_desc">Um objetivo sem prazo é apenas um sonho. Como vamos medir o sucesso de cada ação?</p>
+            </div>
+
+            <div id="metrics-container" class="space-y-6">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+
+        <!-- STEP 4: REVIEW -->
+        <div id="step-4" class="step-content hidden fade-in max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step4_badge">Revisão</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2" data-key="step4_title">Seu Plano Consolidado</h2>
+                </div>
+                <button onclick="exportToWord()" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                    <span data-key="btn_export">Baixar Documento (.doc)</span>
+                </button>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-[2rem] p-10 shadow-xl space-y-10 relative overflow-hidden">
+                <div class="relative z-10" id="review-content">
+                    <!-- Dynamic Content -->
+                </div>
+                
+                <!-- Dica de Ouro -->
+                <div class="mt-8 pt-6 border-t border-slate-100 flex items-start gap-3 bg-indigo-50/50 p-4 rounded-xl relative z-10">
+                    <svg class="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H3"/></svg>
+                    <div>
+                        <h4 class="font-bold text-indigo-900 text-sm mb-1" data-key="tip_title">Insight de Carreira</h4>
+                        <p class="text-sm text-indigo-800 leading-relaxed" id="tip-text">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: FINAL -->
+        <div id="step-5" class="step-content hidden fade-in flex flex-col items-center justify-center min-h-[50vh] max-w-xl mx-auto text-center">
+            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-8 shadow-sm">
+                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            </div>
+            
+            <h2 class="text-4xl font-bold text-slate-800 mb-4" data-key="final_title">Parabéns pela iniciativa!</h2>
+            <p class="text-xl text-slate-500 mb-10" data-key="final_desc">Você deu o primeiro passo. Agora é hora de tirar do papel.</p>
+            
+            <div class="w-full bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8 text-left relative overflow-hidden group hover:border-indigo-200 transition-colors">
+                <div class="absolute left-0 top-0 w-1 h-full bg-indigo-500"></div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2" data-key="final_path_label">Próximo passo: Registre no</p>
+                <div class="flex flex-col gap-1">
+                    <div class="flex items-center gap-2 font-bold text-indigo-900 text-xl">
+                        <svg class="w-6 h-6 text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <span data-key="final_path">Success Factors</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm ml-8">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+                        <span data-key="final_subpath">Home > Objetivos > Metas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 text-amber-800 text-sm mb-10 flex gap-3 items-start text-left w-full">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                <span data-key="final_alert">Agende o alinhamento com seu líder para validar este plano. Se precisar de apoio, seu HRBP está à disposição.</span>
+            </div>
+
+            <button onclick="resetApp()" class="text-slate-500 hover:text-indigo-600 font-bold px-6 py-3 transition-colors flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+                <span data-key="btn_restart">Criar Novo Plano</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- FOOTER NAV -->
+    <div id="footer-nav" class="hidden sticky bottom-0 left-0 w-full bg-white/95 backdrop-blur-sm border-t border-slate-200 p-4 z-40">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <button onclick="prevStep()" class="text-slate-500 font-bold px-4 py-2 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                <span data-key="nav_prev">Voltar</span>
+            </button>
+            
+            <button id="btn-next" onclick="nextStep()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200 flex items-center gap-2">
+                <span data-key="nav_next">Continuar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="hidden fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-4xl max-h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fade-in">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 id="modal-title" class="font-bold text-xl text-slate-800"></h3>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">✕</button>
+            </div>
+            <div id="modal-content" class="p-8 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // --- DADOS ---
+        const DATA = {
+            competencies: [
+                "Liderança Ágil", "Inteligência Emocional", "Comunicação Assertiva", 
+                "Pensamento Estratégico", "Gestão de Conflitos", "Análise de Dados",
+                "Gestão de Projetos", "Inovação e Criatividade", "Visão de Negócio",
+                "Trabalho em Equipe", "Resiliência / Adaptabilidade", "Gestão do Tempo",
+                "Negociação", "Orientação para Resultados", "Autogestão"
+            ],
+            ideas: {
+                // Conteúdo completo do PDF
+                pt: {
+                    s70: ["Realizar Shadowing", "Job Rotation", "Projetos transversais", "Atuar em crises", "Lançar novo programa", "Resolver problema crônico", "Melhoria de processos", "Ministrar treinamento", "Facilitar reuniões", "Liderar grupo de projeto", "Visitas a clientes", "Processos orçamentários"],
+                    s20: ["Feedbacks (Gestor/Pares)", "Mentoria (Mentor/Mentorado)", "Role Model", "Benchmarking", "Grupos de discussão", "Fóruns técnicos", "Feedback pós-projeto"],
+                    s10: ["Treinamentos Formais", "Vídeos/Webinars", "Leitura técnica", "Certificações", "Congressos", "Treinamentos comportamentais"]
+                }
             },
-            section20: {
-                title: "20% - Relacionamentos (Troca)",
-                desc: "Impacto através de feedback e observação.",
-                items: [
-                    "Feedbacks de Gestores, Colegas, Equipes e Clientes",
-                    "Tutoria e Mentoring (como mentor ou mentorado)",
-                    "Identificar uma ou duas pessoas 'Role Model'",
-                    "Networking / Benchmarking externo",
-                    "Grupos de discussão e partilha de boas práticas",
-                    "Fóruns de discussão técnica",
-                    "Procurar feedback regular sobre comportamentos",
-                    "Pedir feedback pós-projeto (Pares e Subordinados)",
-                    "Envolver-se em integrações de novos colaboradores"
-                ]
-            },
-            section10: {
-                title: "10% - Educação (Formal)",
-                desc: "Base teórica para sustentar a prática.",
-                items: [
-                    "Treinamentos Formais (Presenciais ou Online)",
-                    "Vídeos educativos e Webinars",
-                    "Leitura técnica e comportamental (Livros/Artigos)",
-                    "Certificações de mercado",
-                    "Eventos e Congressos",
-                    "Treinamentos comportamentais e atitudinais"
-                ]
-            }
+            tips: [
+                "Conecte sua meta ao negócio: Pergunte-se 'Como desenvolver essa competência ajuda minha área a bater as metas do ano?'. Isso aumenta o apoio da liderança.",
+                "Feedback não é apenas sobre o passado. Peça 'Feedforward': pergunte 'O que posso fazer diferente no próximo projeto para ter mais impacto?'.",
+                "Não subestime o 20% (Relacionamentos). Mapeie quem são os tomadores de decisão que precisam conhecer seu trabalho e crie uma rotina de troca com eles.",
+                "Transforme teoria em processo. Ao terminar um curso (10%), crie um checklist ou ferramenta prática para o time. Isso consolida seu aprendizado e gera legado.",
+                "Evidência de sucesso deve ser observável. Em vez de 'melhorar comunicação', prefira 'apresentar os resultados mensais para a liderança com zero dúvidas sobre os dados'."
+            ]
         };
-
-        const TIPS_LIST = [
-            "Conecte sua meta ao negócio: Pergunte-se 'Como desenvolver essa competência ajuda minha área a bater as metas do ano?'. Isso aumenta o apoio da liderança.",
-            "Feedback não é apenas sobre o passado. Peça 'Feedforward': pergunte 'O que posso fazer diferente no próximo projeto para ter mais impacto?'.",
-            "Não subestime o 20% (Relacionamentos). Mapeie quem são os tomadores de decisão que precisam conhecer seu trabalho e crie uma rotina de troca com eles.",
-            "Transforme teoria em processo. Ao terminar um curso (10%), crie um checklist ou ferramenta prática para o time. Isso consolida seu aprendizado e gera legado.",
-            "Evidência de sucesso deve ser observável. Em vez de 'melhorar comunicação', prefira 'apresentar os resultados mensais para a liderança com zero dúvidas sobre os dados'."
-        ];
 
         const TRANSLATIONS = {
             pt: {
-                header_title: "Plano de Desenvolvimento Individual",
-                
-                // Welcome
-                welcome_badge: "Sua Carreira",
+                app_title: "Plano de Desenvolvimento Individual",
+                btn_start: "Iniciar Jornada",
                 welcome_title: "Vamos desenhar seu futuro?",
                 welcome_desc: "Este é um espaço seguro para você refletir sobre onde está e onde quer chegar. O PDI não é uma formalidade, é a estratégia da sua evolução.",
-                welcome_note: "Lembre-se: Você é o protagonista. Use este rascunho para estruturar suas ideias antes de conversar com sua liderança.",
-                btn_start: "Iniciar Jornada",
-
-                // Step 1
-                step1_badge: "Direção",
                 step1_title: "Qual é o seu foco?",
-                step1_sub: "Definir o destino é o primeiro passo para uma jornada de sucesso.",
-                label_goal: "Meta de Desenvolvimento",
-                place_goal: "Ex: Quero assumir uma posição de coordenação em 1 ano...",
-                helper_goal: "O que você quer conquistar? Pode ser melhorar sua performance atual, preparar-se para um futuro cargo ou potencializar um talento natural que você já tem.",
-                label_comp: "Competência Principal",
-                place_comp: "Ex: Liderança Situacional...",
-                helper_comp: "Qual habilidade será a chave para atingir essa meta? Se tiver dúvida, consulte nossa lista de referência.",
-                btn_comp_ideas: "Ver sugestões",
-
-                // Step 2
-                step2_badge: "Metodologia",
                 step2_title: "Como vamos chegar lá?",
-                step2_intro_title: "A Regra 70/20/10",
-                step2_intro_desc: "A ciência mostra que aprendemos mais praticando do que estudando. Para seu plano ser robusto, ele precisa cobrir três frentes:",
-                btn_ideas: "Banco de Ideias Completo",
-                label_70: "70% - Experiência",
-                expl_70: "Aprender fazendo, resolvendo problemas reais.",
-                place_70: "Qual desafio prático você vai assumir?",
-                label_20: "20% - Relacionamentos",
-                expl_20: "Aprender com os outros, trocando experiências.",
-                place_20: "Quem será seu mentor ou fonte de feedback?",
-                label_10: "10% - Educação",
-                expl_10: "Cursos, livros e teoria.",
-                place_10: "O que você precisa estudar?",
-
-                // Step 3
-                step3_badge: "Compromisso",
                 step3_title: "Indicadores e Prazos",
-                step3_desc: "Um objetivo sem prazo é apenas um sonho. Como vamos medir o sucesso de cada ação?",
-                label_evidence: "Evidência de Sucesso",
-                place_evidence: "O que comprova que você fez?",
-                label_date: "Data Limite",
-                
-                // Step 4
-                step4_badge: "Revisão",
                 step4_title: "Seu Plano Consolidado",
-                step4_desc: "Revise com carinho. Este documento representa seu compromisso com você mesmo.",
-                btn_export: "Baixar Documento (.doc)",
-                tip_title: "Insight de Carreira",
-
-                // Final
                 final_title: "Parabéns pela iniciativa!",
-                final_desc: "Você deu o primeiro passo. Agora é hora de tirar do papel.",
-                final_path_label: "Próximo passo: Registre no",
                 final_path: "Success Factors",
-                final_subpath: "Home > Objetivos > Metas",
-                final_alert: "Agende o alinhamento com seu líder para validar este plano. Se precisar de apoio, seu HRBP está à disposição.",
-                btn_restart: "Criar Novo Plano",
-
+                btn_export: "Baixar Documento (.doc)",
+                label_evidence: "Evidência de Sucesso",
+                label_date: "Data Limite",
                 nav_next: "Continuar",
-                nav_prev: "Voltar",
                 nav_finish: "Concluir"
             },
             es: {
-                header_title: "Plan de Desarrollo Individual",
-                
-                welcome_badge: "Tu Carrera",
+                app_title: "Plan de Desarrollo Individual",
+                btn_start: "Iniciar Jornada",
                 welcome_title: "¿Diseñamos tu futuro?",
                 welcome_desc: "Este es un espacio seguro para reflexionar sobre dónde estás y a dónde quieres llegar. El PDI no es una formalidad, es la estrategia de tu evolución.",
-                welcome_note: "Recuerda: Eres el protagonista. Usa este borrador para estructurar tus ideas antes de hablar con tu liderazgo.",
-                btn_start: "Iniciar Jornada",
-
-                step1_badge: "Dirección",
                 step1_title: "¿Cuál es tu enfoque?",
-                step1_sub: "Definir el destino es el primer paso para una jornada de éxito.",
-                label_goal: "Meta de Desarrollo",
-                place_goal: "Ej: Quiero asumir una posición de coordinación en 1 año...",
-                helper_goal: "¿Qué quieres lograr? Puede ser mejorar tu desempeño actual, prepararte para un cargo futuro o potenciar un talento natural que ya tienes.",
-                label_comp: "Competencia Principal",
-                place_comp: "Ej: Liderazgo Situacional...",
-                helper_comp: "¿Qué habilidad será clave para alcanzar esa meta? Si tienes dudas, consulta nuestra lista de referencia.",
-                btn_comp_ideas: "Ver sugerencias",
-
-                step2_badge: "Metodología",
                 step2_title: "¿Cómo llegaremos allí?",
-                step2_intro_title: "La Regla 70/20/10",
-                step2_intro_desc: "La ciencia muestra que aprendemos más practicando que estudiando. Para que tu plan sea robusto, debe cubrir tres frentes:",
-                btn_ideas: "Banco de Ideas Completo",
-                label_70: "70% - Experiencia",
-                expl_70: "Aprender haciendo, resolviendo problemas reales.",
-                place_70: "¿Qué desafío práctico asumirás?",
-                label_20: "20% - Relaciones",
-                expl_20: "Aprender con otros, intercambiando experiencias.",
-                place_20: "¿Quién será tu mentor o fuente de feedback?",
-                label_10: "10% - Educación",
-                expl_10: "Cursos, libros y teoría.",
-                place_10: "¿Qué necesitas estudiar?",
-
-                step3_badge: "Compromiso",
                 step3_title: "Indicadores y Plazos",
-                step3_desc: "Un objetivo sin plazo es solo un sueño. ¿Cómo mediremos el éxito de cada acción?",
-                label_evidence: "Evidencia de Éxito",
-                place_evidence: "¿Qué comprueba que lo hiciste?",
-                label_date: "Fecha Límite",
-                
-                step4_badge: "Revisión",
                 step4_title: "Tu Plan Consolidado",
-                step4_desc: "Revisa con cariño. Este documento representa tu compromiso contigo mismo.",
-                btn_export: "Descargar Documento (.doc)",
-                tip_title: "Insight de Carrera",
-
                 final_title: "¡Felicidades por la iniciativa!",
-                final_desc: "Diste el primer paso. Ahora es momento de actuar.",
-                final_path_label: "Próximo paso: Registra en",
                 final_path: "Success Factors",
-                final_subpath: "Inicio > Objetivos > Metas",
-                final_alert: "Agenda la alineación con tu líder para validar este plan. Si necesitas apoyo, tu HRBP está a disposición.",
-                btn_restart: "Crear Nuevo Plan",
-
+                btn_export: "Descargar Documento (.doc)",
+                label_evidence: "Evidencia de Éxito",
+                label_date: "Fecha Límite",
                 nav_next: "Continuar",
-                nav_prev: "Volver",
                 nav_finish: "Concluir"
             }
         };
 
-        // --- COMPONENTES AUXILIARES ---
+        // --- ESTADO ---
+        let currentStep = 0;
+        let currentLang = 'pt';
+        
+        // --- FUNÇÕES ---
 
-        const Card = ({ children, className = "" }) => (
-            <div className={`bg-white rounded-3xl shadow-sm border border-slate-100 p-8 hover:shadow-md transition-shadow duration-300 ${className}`}>
-                {children}
-            </div>
-        );
-
-        const Badge = ({ children, color = "indigo" }) => {
-            return (
-                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100`}>
-                    {children}
-                </span>
-            );
-        };
-
-        // --- APLICATIVO ---
-
-        function App() {
-            const [lang, setLang] = useState('pt');
-            const [step, setStep] = useState(0);
-            const [modalType, setModalType] = useState(null); 
-            const [tip, setTip] = useState("");
+        function init() {
+            updateLanguage();
+            showStep(0);
             
-            const [formData, setFormData] = useState({
-                goal: '', competence: '',
-                action70: '', measure70: '', date70: '',
-                action20: '', measure20: '', date20: '',
-                action10: '', measure10: '', date10: ''
-            });
-
-            const t = TRANSLATIONS[lang];
-
-            useEffect(() => {
-                setTip(TIPS_LIST[Math.floor(Math.random() * TIPS_LIST.length)]);
-            }, []);
-
-            const handleChange = (e) => {
-                const { name, value } = e.target;
-                setFormData(prev => ({ ...prev, [name]: value }));
-            };
-
-            const next = () => { window.scrollTo(0,0); setStep(s => s + 1); };
-            const prev = () => { window.scrollTo(0,0); setStep(s => s - 1); };
-            
-            const reset = () => {
-                setFormData({
-                    goal: '', competence: '',
-                    action70: '', measure70: '', date70: '',
-                    action20: '', measure20: '', date20: '',
-                    action10: '', measure10: '', date10: ''
-                });
-                setStep(0);
-                setTip(TIPS_LIST[Math.floor(Math.random() * TIPS_LIST.length)]);
-            };
-
-            const exportDoc = () => {
-                const content = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head><meta charset='utf-8'><title>PDI</title></head>
-                <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                    <h1 style="color: #4338ca; border-bottom: 2px solid #4338ca; padding-bottom: 10px;">${t.header_title}</h1>
-                    <p><strong>Data:</strong> ${new Date().toLocaleDateString()}</p>
-                    
-                    <div style="margin-top: 30px; background: #f8fafc; padding: 20px; border-radius: 8px;">
-                    <h2 style="color: #1e293b; margin-top:0;">1. Direcionamento</h2>
-                    <p><strong>Meta:</strong> ${formData.goal}</p>
-                    <p><strong>Competência:</strong> ${formData.competence}</p>
-                    </div>
-
-                    <h2 style="color: #1e293b; margin-top: 30px;">2. Plano de Ação (70/20/10)</h2>
-                    
-                    <h3 style="color: #059669; margin-bottom: 5px;">70% - Experiência</h3>
-                    <p style="margin-top: 0;">${formData.action70}</p>
-                    <p style="font-size: 0.9em; color: #64748b;">Evidência: <strong>${formData.measure70}</strong> | Prazo: <strong>${formData.date70}</strong></p>
-                    
-                    <h3 style="color: #d97706; margin-bottom: 5px;">20% - Relacionamentos</h3>
-                    <p style="margin-top: 0;">${formData.action20}</p>
-                    <p style="font-size: 0.9em; color: #64748b;">Evidência: <strong>${formData.measure20}</strong> | Prazo: <strong>${formData.date20}</strong></p>
-                    
-                    <h3 style="color: #2563eb; margin-bottom: 5px;">10% - Educação</h3>
-                    <p style="margin-top: 0;">${formData.action10}</p>
-                    <p style="font-size: 0.9em; color: #64748b;">Evidência: <strong>${formData.measure10}</strong> | Prazo: <strong>${formData.date10}</strong></p>
-                    
-                    <hr style="margin-top: 40px; border: 0; border-top: 1px solid #eee;" />
-                    <p style="font-size:10pt; color:#94a3b8; text-align: center;">Desenvolvido por Vinicius Carlos</p>
-                </body>
-                </html>
-                `;
-                const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(content);
-                const link = document.createElement("a");
-                link.href = source;
-                link.download = `PDI_${new Date().toISOString().slice(0,10)}.doc`;
-                link.click();
-            };
-
-            // RENDER STEPS
-            const renderStep0 = () => (
-                <div className="flex flex-col items-center text-center py-10 max-w-2xl mx-auto animate-fade-in">
-                    <Badge>{t.welcome_badge}</Badge>
-                    <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mt-6 mb-4 tracking-tight">{t.welcome_title}</h1>
-                    <p className="text-xl text-slate-500 leading-relaxed mb-10">{t.welcome_desc}</p>
-                    
-                    <div className="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex gap-4 text-left mb-10">
-                        <div className="bg-white p-2 rounded-lg h-fit shadow-sm">
-                            <Icons.Target className="w-6 h-6 text-indigo-600" />
-                        </div>
-                        <div>
-                            <p className="text-indigo-900 font-medium text-sm leading-relaxed">{t.welcome_note}</p>
-                        </div>
-                    </div>
-                    
-                    <button onClick={next} className="bg-slate-900 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-slate-800 hover:scale-105 transition-all shadow-xl shadow-slate-200 flex items-center gap-2">
-                        {t.btn_start} <Icons.ArrowRight className="w-5 h-5" />
-                    </button>
-                </div>
-            );
-
-            const renderStep1 = () => (
-                <div className="max-w-3xl mx-auto space-y-8 animate-fade-in">
-                    <div className="text-center mb-10">
-                        <Badge>{t.step1_badge}</Badge>
-                        <h2 className="text-3xl font-bold text-slate-800 mt-4 mb-2">{t.step1_title}</h2>
-                        <p className="text-slate-500">{t.step1_sub}</p>
-                    </div>
-
-                    <Card>
-                        <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">{t.label_goal}</label>
-                        <p className="text-sm text-slate-500 mb-4 leading-relaxed border-l-4 border-indigo-200 pl-3">
-                            {t.helper_goal}
-                        </p>
-                        <textarea 
-                            name="goal" 
-                            value={formData.goal} 
-                            onChange={handleChange} 
-                            placeholder={t.place_goal}
-                            className="w-full p-4 text-lg bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-700 min-h-[120px] resize-none placeholder:text-slate-400"
-                        />
-                    </Card>
-
-                    <Card>
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide">{t.label_comp}</label>
-                            <button 
-                                onClick={() => setModalType('competencies')}
-                                className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1"
-                            >
-                                <Icons.Star className="w-3 h-3" /> {t.btn_comp_ideas}
-                            </button>
-                        </div>
-                        <p className="text-sm text-slate-500 mb-3">{t.helper_comp}</p>
-                        <input 
-                            name="competence" 
-                            value={formData.competence} 
-                            onChange={handleChange} 
-                            placeholder={t.place_comp}
-                            className="w-full p-4 text-lg bg-slate-50 border-0 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-700 placeholder:text-slate-400"
-                        />
-                    </Card>
-                </div>
-            );
-
-            const renderStep2 = () => (
-                <div className="max-w-5xl mx-auto animate-fade-in">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-                        <div>
-                            <Badge>{t.step2_badge}</Badge>
-                            <h2 className="text-3xl font-bold text-slate-800 mt-4 mb-2">{t.step2_title}</h2>
-                            <div className="flex gap-3 mt-4 text-slate-500 max-w-2xl bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                                <Icons.Layout className="w-5 h-5 flex-shrink-0 mt-1 text-indigo-500" />
-                                <div>
-                                    <strong className="block text-slate-700 text-sm mb-1">{t.step2_intro_title}</strong>
-                                    <p className="text-sm leading-relaxed">{t.step2_intro_desc}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button 
-                            onClick={() => setModalType('ideas')}
-                            className="bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-xl font-bold hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-sm flex items-center gap-2 whitespace-nowrap"
-                        >
-                            <Icons.Lightbulb className="w-4 h-4" /> {t.btn_ideas}
-                        </button>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {/* 70% */}
-                        <div className="bg-white rounded-3xl p-1 border-t-4 border-emerald-500 shadow-sm hover:shadow-lg transition-all">
-                            <div className="p-6">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-2xl font-bold text-emerald-600">70%</span>
-                                    <span className="text-xs font-bold uppercase text-emerald-800 bg-emerald-100 px-2 py-1 rounded">Experiência</span>
-                                </div>
-                                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">{t.expl_70}</p>
-                                <div className="bg-slate-50 rounded-2xl p-2">
-                                    <textarea 
-                                        name="action70"
-                                        value={formData.action70}
-                                        onChange={handleChange}
-                                        placeholder={t.place_70}
-                                        className="w-full bg-transparent border-0 p-3 text-slate-700 focus:ring-0 resize-none h-48 text-sm placeholder:text-slate-400"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        {/* 20% */}
-                        <div className="bg-white rounded-3xl p-1 border-t-4 border-amber-500 shadow-sm hover:shadow-lg transition-all">
-                            <div className="p-6">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-2xl font-bold text-amber-500">20%</span>
-                                    <span className="text-xs font-bold uppercase text-amber-800 bg-amber-100 px-2 py-1 rounded">Relacionamentos</span>
-                                </div>
-                                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">{t.expl_20}</p>
-                                <div className="bg-slate-50 rounded-2xl p-2">
-                                    <textarea 
-                                        name="action20"
-                                        value={formData.action20}
-                                        onChange={handleChange}
-                                        placeholder={t.place_20}
-                                        className="w-full bg-transparent border-0 p-3 text-slate-700 focus:ring-0 resize-none h-48 text-sm placeholder:text-slate-400"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        {/* 10% */}
-                        <div className="bg-white rounded-3xl p-1 border-t-4 border-blue-500 shadow-sm hover:shadow-lg transition-all">
-                            <div className="p-6">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-2xl font-bold text-blue-500">10%</span>
-                                    <span className="text-xs font-bold uppercase text-blue-800 bg-blue-100 px-2 py-1 rounded">Educação</span>
-                                </div>
-                                <p className="text-sm text-slate-500 mb-6 min-h-[40px]">{t.expl_10}</p>
-                                <div className="bg-slate-50 rounded-2xl p-2">
-                                    <textarea 
-                                        name="action10"
-                                        value={formData.action10}
-                                        onChange={handleChange}
-                                        placeholder={t.place_10}
-                                        className="w-full bg-transparent border-0 p-3 text-slate-700 focus:ring-0 resize-none h-48 text-sm placeholder:text-slate-400"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const renderStep3 = () => (
-                <div className="max-w-4xl mx-auto animate-fade-in">
-                    <div className="text-center mb-10">
-                        <Badge>{t.step3_badge}</Badge>
-                        <h2 className="text-3xl font-bold text-slate-800 mt-4 mb-2">{t.step3_title}</h2>
-                        <p className="text-slate-500">{t.step3_desc}</p>
-                    </div>
-
-                    <div className="space-y-6">
-                        {[
-                            { id: '70', title: 'Ação 70%', color: 'emerald', text: formData.action70 },
-                            { id: '20', title: 'Ação 20%', color: 'amber', text: formData.action20 },
-                            { id: '10', title: 'Ação 10%', color: 'blue', text: formData.action10 },
-                        ].map(item => (
-                            item.text && (
-                                <Card key={item.id} className="border-l-0">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <div className={`w-3 h-3 rounded-full bg-${item.color}-500`} />
-                                        <h3 className="font-bold text-slate-700">{item.title}</h3>
-                                    </div>
-                                    <p className="text-slate-600 mb-8 pl-6 border-l-2 border-slate-100 italic">"{item.text}"</p>
-                                    
-                                    <div className="grid md:grid-cols-2 gap-6 pl-6">
-                                        <div>
-                                            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">
-                                                <Icons.Flag className="w-3 h-3 text-indigo-500" />
-                                                {t.label_evidence}
-                                            </label>
-                                            <div className="bg-slate-50 rounded-xl p-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-all border border-transparent focus-within:border-indigo-200">
-                                                <input 
-                                                    name={`measure${item.id}`}
-                                                    value={formData[`measure${item.id}`]}
-                                                    onChange={handleChange}
-                                                    placeholder={t.place_evidence}
-                                                    className="w-full bg-transparent border-0 focus:ring-0 text-slate-800 font-medium placeholder:text-slate-400 placeholder:font-normal"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">
-                                                <Icons.CalendarClock className="w-3 h-3 text-indigo-500" />
-                                                {t.label_date}
-                                            </label>
-                                            <div className="bg-slate-50 rounded-xl p-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-all border border-transparent focus-within:border-indigo-200 flex items-center gap-2">
-                                                <Icons.Calendar className="w-4 h-4 text-slate-400" />
-                                                <input 
-                                                    type="date"
-                                                    name={`date${item.id}`}
-                                                    value={formData[`date${item.id}`]}
-                                                    onChange={handleChange}
-                                                    className="w-full bg-transparent border-0 focus:ring-0 text-slate-800 font-medium"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Card>
-                            )
-                        ))}
-
-                        {(!formData.action70 && !formData.action20 && !formData.action10) && (
-                            <div className="text-center p-12 bg-slate-50 rounded-3xl border border-dashed border-slate-300 text-slate-400">
-                                <p>Nenhuma ação foi preenchida na etapa anterior.</p>
-                                <button onClick={prev} className="text-indigo-600 font-bold mt-2 hover:underline">Voltar e preencher</button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-
-            const renderStep4 = () => (
-                <div className="max-w-4xl mx-auto animate-fade-in">
-                    <div className="flex justify-between items-center mb-8">
-                        <div>
-                            <Badge>{t.step4_badge}</Badge>
-                            <h2 className="text-3xl font-bold text-slate-800 mt-2">{t.step4_title}</h2>
-                        </div>
-                        <button onClick={exportDoc} className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-0.5 transition-all flex items-center gap-2">
-                            <Icons.Download className="w-4 h-4" /> {t.btn_export}
-                        </button>
-                    </div>
-
-                    <div className="bg-white border border-slate-200 rounded-[2rem] p-10 shadow-xl space-y-10 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-full -translate-y-1/2 translate-x-1/2 z-0" />
-                        <div className="relative z-10">
-                            <div className="border-b border-slate-100 pb-6 mb-6">
-                                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Objetivo Principal</h3>
-                                <p className="text-2xl font-bold text-slate-800 leading-tight">{formData.goal || "---"}</p>
-                                <div className="mt-3 inline-block bg-indigo-50 px-3 py-1 rounded-lg text-indigo-700 text-sm font-semibold">
-                                    {formData.competence || "---"}
-                                </div>
-                            </div>
-
-                            <div className="space-y-6">
-                                {[
-                                    { l: '70% Experiência', a: formData.action70, m: formData.measure70, d: formData.date70, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                                    { l: '20% Relacionamentos', a: formData.action20, m: formData.measure20, d: formData.date20, color: 'text-amber-600', bg: 'bg-amber-50' },
-                                    { l: '10% Educação', a: formData.action10, m: formData.measure10, d: formData.date10, color: 'text-blue-600', bg: 'bg-blue-50' }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
-                                        <h4 className={`font-bold ${item.color} mb-2 text-sm uppercase tracking-wide`}>{item.l}</h4>
-                                        <p className="text-slate-700 font-medium mb-4">{item.a || '---'}</p>
-                                        <div className="flex flex-wrap gap-4 text-xs text-slate-500 border-t border-slate-200 pt-3">
-                                            <div><strong className="text-slate-400 uppercase tracking-wider">Evidência:</strong> <span className="text-slate-700 ml-1">{item.m || '-'}</span></div>
-                                            <div><strong className="text-slate-400 uppercase tracking-wider">Prazo:</strong> <span className="text-slate-700 ml-1">{item.d || '-'}</span></div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            
-                            {/* Dica de Ouro */}
-                            <div className="mt-8 pt-6 border-t border-slate-100 flex items-start gap-3 bg-indigo-50/50 p-4 rounded-xl">
-                                <Icons.Sparkles className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
-                                <div>
-                                    <h4 className="font-bold text-indigo-900 text-sm mb-1">{t.tip_title}</h4>
-                                    <p className="text-sm text-indigo-800 leading-relaxed">{tip}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const renderStep5 = () => (
-                <div className="flex flex-col items-center justify-center min-h-[60vh] animate-fade-in max-w-xl mx-auto text-center">
-                    <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-8 shadow-sm">
-                        <Icons.CheckCircle className="w-10 h-10 text-green-600" />
-                    </div>
-                    
-                    <h2 className="text-4xl font-bold text-slate-800 mb-4">{t.final_title}</h2>
-                    <p className="text-xl text-slate-500 mb-10">{t.final_desc}</p>
-                    
-                    <div className="w-full bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8 text-left relative overflow-hidden group hover:border-indigo-200 transition-colors">
-                        <div className="absolute left-0 top-0 w-1 h-full bg-indigo-500" />
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{t.final_path_label}</p>
-                        <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-2 font-bold text-indigo-900 text-xl">
-                                <Icons.Target className="w-6 h-6 text-indigo-500" /> {t.final_path}
-                            </div>
-                            <div className="flex items-center gap-2 text-slate-500 text-sm ml-8">
-                                <Icons.CornerDownRight className="w-4 h-4" /> {t.final_subpath}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-amber-50 border border-amber-100 rounded-xl p-5 text-amber-800 text-sm mb-10 flex gap-3 items-start text-left">
-                        <Icons.AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                        {t.final_alert}
-                    </div>
-
-                    <button 
-                        onClick={reset}
-                        className="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-800 transition-all shadow-lg flex items-center gap-2"
-                    >
-                        <Icons.RefreshCcw className="w-5 h-5" /> {t.btn_restart}
-                    </button>
-                </div>
-            );
-
-            return (
-                <div className="min-h-screen flex flex-col">
-                    {/* HEADER */}
-                    <header className="bg-white/90 backdrop-blur-md border-b border-indigo-100 sticky top-0 z-30">
-                        <div className="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <div className="bg-indigo-600 w-10 h-10 rounded-lg flex items-center justify-center shadow-md shadow-indigo-200">
-                                    <Icons.TrendingUp className="text-white w-6 h-6" />
-                                </div>
-                                <div>
-                                    <h1 className="font-extrabold text-2xl text-blue-900 tracking-tight leading-none">{t.header_title}</h1>
-                                </div>
-                            </div>
-                            <button 
-                                onClick={() => setLang(lang === 'pt' ? 'es' : 'pt')} 
-                                className="text-xs font-bold text-slate-500 hover:text-indigo-600 bg-slate-100 px-4 py-2 rounded-full transition-colors flex items-center gap-2 border border-slate-200"
-                            >
-                                <Icons.Globe className="w-3 h-3" /> {lang.toUpperCase()}
-                            </button>
-                        </div>
-                    </header>
-
-                    {/* BODY */}
-                    <main className="max-w-5xl mx-auto px-6 py-12 flex-grow w-full">
-                        {step === 0 && renderStep0()}
-                        {step === 1 && renderStep1()}
-                        {step === 2 && renderStep2()}
-                        {step === 3 && renderStep3()}
-                        {step === 4 && renderStep4()}
-                        {step === 5 && renderStep5()}
-                    </main>
-
-                    {/* FOOTER NAV */}
-                    {step > 0 && step < 5 && (
-                        <div className="sticky bottom-0 left-0 w-full bg-white/95 backdrop-blur-sm border-t border-slate-200 p-3 z-40">
-                            <div className="max-w-5xl mx-auto flex justify-between items-center">
-                                <button 
-                                    onClick={prev} 
-                                    className="text-slate-500 font-bold px-4 py-2 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-2"
-                                >
-                                    <Icons.ArrowLeft className="w-4 h-4" /> {t.nav_prev}
-                                </button>
-                                
-                                {step < 4 ? (
-                                    <button 
-                                        onClick={next} 
-                                        disabled={step === 1 && !formData.goal}
-                                        className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md shadow-indigo-200 flex items-center gap-2"
-                                    >
-                                        {t.nav_next} <Icons.ChevronRight className="w-4 h-4" />
-                                    </button>
-                                ) : (
-                                    <button 
-                                        onClick={next} 
-                                        className="bg-slate-900 text-white px-6 py-2 rounded-xl font-bold hover:bg-slate-800 transition-all shadow-md flex items-center gap-2"
-                                    >
-                                        <Icons.CheckCircle className="w-4 h-4" /> {t.nav_finish}
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* MODAL */}
-                    {modalType && (
-                        <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in">
-                            <div className="bg-white w-full max-w-4xl max-h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden">
-                                <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                                    <h3 className="font-bold text-xl text-slate-800">
-                                        {modalType === 'ideas' ? 'Banco de Ideias (PDI Eficaz)' : 'Competências Sugeridas'}
-                                    </h3>
-                                    <button 
-                                        onClick={() => setModalType(null)} 
-                                        className="w-10 h-10 rounded-full bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors"
-                                    >
-                                        ✕
-                                    </button>
-                                </div>
-                                
-                                <div className="p-8 overflow-y-auto">
-                                    {modalType === 'competencies' ? (
-                                        <div className="grid md:grid-cols-2 gap-4">
-                                            {COMPETENCIES_LIST.map((comp, i) => (
-                                                <button 
-                                                    key={i}
-                                                    onClick={() => {
-                                                        setFormData(prev => ({ ...prev, competence: comp }));
-                                                        setModalType(null);
-                                                    }}
-                                                    className="text-left p-4 rounded-xl border border-slate-100 hover:border-indigo-300 hover:bg-indigo-50 transition-all font-medium text-slate-700 hover:text-indigo-800"
-                                                >
-                                                    {comp}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className="grid md:grid-cols-3 gap-8 text-sm">
-                                            {/* 70% */}
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-2 pb-2 border-b border-emerald-100">
-                                                    <span className="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-xs">70%</span>
-                                                    <span className="font-bold text-emerald-800">Experiência</span>
-                                                </div>
-                                                <p className="text-xs text-slate-500 italic">{IDEAS_CONTENT.section70.desc}</p>
-                                                <ul className="space-y-3">
-                                                    {IDEAS_CONTENT.section70.items.map((item, i) => (
-                                                        <li key={i} className="flex gap-2 text-slate-700">
-                                                            <span className="text-emerald-500 mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
-                                                            {item}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                            {/* 20% */}
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-2 pb-2 border-b border-amber-100">
-                                                    <span className="bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded text-xs">20%</span>
-                                                    <span className="font-bold text-amber-800">Relacionamentos</span>
-                                                </div>
-                                                <p className="text-xs text-slate-500 italic">{IDEAS_CONTENT.section20.desc}</p>
-                                                <ul className="space-y-3">
-                                                    {IDEAS_CONTENT.section20.items.map((item, i) => (
-                                                        <li key={i} className="flex gap-2 text-slate-700">
-                                                            <span className="text-amber-500 mt-1.5 w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0" />
-                                                            {item}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                            {/* 10% */}
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-2 pb-2 border-b border-blue-100">
-                                                    <span className="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs">10%</span>
-                                                    <span className="font-bold text-blue-800">Educação</span>
-                                                </div>
-                                                <p className="text-xs text-slate-500 italic">{IDEAS_CONTENT.section10.desc}</p>
-                                                <ul className="space-y-3">
-                                                    {IDEAS_CONTENT.section10.items.map((item, i) => (
-                                                        <li key={i} className="flex gap-2 text-slate-700">
-                                                            <span className="text-blue-500 mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
-                                                            {item}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    <footer className="py-8 text-center text-slate-300 text-xs mt-auto">
-                        Desenvolvido por Vinicius Carlos
-                    </footer>
-                </div>
-            );
+            // Random Tip
+            const tip = DATA.tips[Math.floor(Math.random() * DATA.tips.length)];
+            document.getElementById('tip-text').innerText = tip;
         }
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        function toggleLanguage() {
+            currentLang = currentLang === 'pt' ? 'es' : 'pt';
+            document.getElementById('lang-label').innerText = currentLang.toUpperCase();
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const t = TRANSLATIONS[currentLang];
+            // Update simple text keys
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(t[key]) el.innerText = t[key];
+            });
+            // Update placeholders if needed (simplified)
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show current
+            const currentEl = document.getElementById(`step-${step}`);
+            currentEl.classList.remove('hidden');
+            
+            // Footer visibility
+            const footer = document.getElementById('footer-nav');
+            if(step > 0 && step < 5) footer.classList.remove('hidden');
+            else footer.classList.add('hidden');
+
+            // Button Text Logic
+            const btnNextText = document.querySelector('[data-key="nav_next"]');
+            if(step === 4) btnNextText.innerText = (currentLang === 'pt' ? 'Concluir' : 'Concluir');
+            else btnNextText.innerText = (currentLang === 'pt' ? 'Continuar' : 'Continuar');
+
+            window.scrollTo(0, 0);
+        }
+
+        function nextStep() {
+            if (currentStep === 2) generateMetricsFields(); // Generate inputs for step 3 based on step 2
+            if (currentStep === 3) generateReview(); // Generate review for step 4
+            
+            if (currentStep < 5) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function resetApp() {
+            // Clear inputs
+            document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+            currentStep = 0;
+            showStep(0);
+        }
+
+        // --- LÓGICA DINÂMICA ---
+
+        function generateMetricsFields() {
+            const container = document.getElementById('metrics-container');
+            container.innerHTML = '';
+            
+            const actions = [
+                { id: '70', text: document.getElementById('input-70').value, color: 'emerald', title: '70% Experiência' },
+                { id: '20', text: document.getElementById('input-20').value, color: 'amber', title: '20% Relacionamentos' },
+                { id: '10', text: document.getElementById('input-10').value, color: 'blue', title: '10% Educação' }
+            ];
+
+            let hasContent = false;
+
+            actions.forEach(act => {
+                if(act.text.trim()) {
+                    hasContent = true;
+                    const html = `
+                        <div class="bg-white rounded-3xl shadow-sm border-l-4 border-${act.color}-500 p-6 border-y border-r border-slate-100">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-xs font-bold uppercase text-${act.color}-600 bg-${act.color}-50 px-2 py-1 rounded">${act.title}</span>
+                            </div>
+                            <p class="text-slate-700 mb-6 italic">"${act.text}"</p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">Evidência</label>
+                                    <input id="measure-${act.id}" class="input-focus w-full p-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" placeholder="O que comprova a conclusão?">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">Prazo</label>
+                                    <input id="date-${act.id}" type="date" class="input-focus w-full p-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-600">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', html);
+                }
+            });
+
+            if(!hasContent) {
+                container.innerHTML = '<div class="text-center p-8 bg-slate-50 rounded-xl text-slate-400">Nenhuma ação preenchida anteriormente. Volte e preencha.</div>';
+            }
+        }
+
+        function generateReview() {
+            const goal = document.getElementById('input-goal').value;
+            const comp = document.getElementById('input-comp').value;
+            const container = document.getElementById('review-content');
+            
+            // Build Actions HTML
+            const actions = [
+                { id: '70', text: document.getElementById('input-70').value, meas: document.getElementById('measure-70')?.value, date: document.getElementById('date-70')?.value, title: '70% Experiência', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                { id: '20', text: document.getElementById('input-20').value, meas: document.getElementById('measure-20')?.value, date: document.getElementById('date-20')?.value, title: '20% Relacionamentos', color: 'text-amber-600', bg: 'bg-amber-50' },
+                { id: '10', text: document.getElementById('input-10').value, meas: document.getElementById('measure-10')?.value, date: document.getElementById('date-10')?.value, title: '10% Educação', color: 'text-blue-600', bg: 'bg-blue-50' }
+            ];
+
+            let actionsHtml = '';
+            actions.forEach(a => {
+                if(a.text) {
+                    actionsHtml += `
+                        <div class="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
+                            <h4 class="font-bold ${a.color} mb-2 text-sm uppercase tracking-wide">${a.title}</h4>
+                            <p class="text-slate-700 font-medium mb-4">${a.text}</p>
+                            <div class="flex flex-wrap gap-4 text-xs text-slate-500 border-t border-slate-200 pt-3">
+                                <div><strong class="text-slate-400 uppercase tracking-wider">Evidência:</strong> <span class="text-slate-700 ml-1">${a.meas || '-'}</span></div>
+                                <div><strong class="text-slate-400 uppercase tracking-wider">Prazo:</strong> <span class="text-slate-700 ml-1">${a.date || '-'}</span></div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = `
+                <div class="border-b border-slate-100 pb-6 mb-6">
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Objetivo Principal</h3>
+                    <p class="text-2xl font-bold text-slate-800 leading-tight">${goal || '---'}</p>
+                    <div class="mt-3 inline-block bg-indigo-50 px-3 py-1 rounded-lg text-indigo-700 text-sm font-semibold">${comp || '---'}</div>
+                </div>
+                <div class="space-y-6">${actionsHtml || '<p class="text-slate-400 italic">Sem ações definidas.</p>'}</div>
+            `;
+        }
+
+        // --- MODAL ---
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            
+            if (type === 'competencies') {
+                title.innerText = 'Competências Sugeridas';
+                content.innerHTML = `<div class="grid md:grid-cols-2 gap-4">${DATA.competencies.map(c => 
+                    `<button onclick="selectComp('${c}')" class="text-left p-4 rounded-xl border border-slate-100 hover:border-indigo-300 hover:bg-indigo-50 transition-all font-medium text-slate-700 hover:text-indigo-800 w-full">${c}</button>`
+                ).join('')}</div>`;
+            } else {
+                title.innerText = 'Banco de Ideias (PDI Eficaz)';
+                content.innerHTML = `
+                    <div class="grid md:grid-cols-3 gap-8 text-sm">
+                        <div class="space-y-3"><strong class="text-emerald-700 block border-b pb-2">70% Experiência</strong><ul class="list-disc pl-4 space-y-2 text-slate-600">${DATA.ideas.pt.s70.map(i => `<li>${i}</li>`).join('')}</ul></div>
+                        <div class="space-y-3"><strong class="text-amber-700 block border-b pb-2">20% Relacionamentos</strong><ul class="list-disc pl-4 space-y-2 text-slate-600">${DATA.ideas.pt.s20.map(i => `<li>${i}</li>`).join('')}</ul></div>
+                        <div class="space-y-3"><strong class="text-blue-700 block border-b pb-2">10% Educação</strong><ul class="list-disc pl-4 space-y-2 text-slate-600">${DATA.ideas.pt.s10.map(i => `<li>${i}</li>`).join('')}</ul></div>
+                    </div>
+                `;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function selectComp(comp) {
+            document.getElementById('input-comp').value = comp;
+            closeModal();
+        }
+
+        function exportToWord() {
+            const html = document.getElementById('review-content').innerHTML;
+            const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PDI</title></head><body>";
+            const footer = "</body></html>";
+            
+            // Simple reconstruction for Word
+            const cleanBody = `
+                <h1 style="color:#333">Meu PDI</h1>
+                <p>Data: ${new Date().toLocaleDateString()}</p>
+                <hr/>
+                ${html.replace(/class=".*?"/g, '')} <!-- Strip classes for basic word rendering -->
+                <hr/>
+                <p>Desenvolvido por Vinicius Carlos</p>
+            `;
+
+            const sourceHTML = header + cleanBody + footer;
+            const source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            const fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'meu_pdi.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+
+        // Initialize
+        init();
+
     </script>
 </body>
 </html>
