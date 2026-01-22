@@ -19,7 +19,8 @@ import {
   Flag,
   CalendarClock,
   Check,
-  TrendingUp
+  TrendingUp,
+  Sparkles
 } from 'lucide-react';
 
 // --- DADOS E CONTEÚDO ---
@@ -81,6 +82,14 @@ const IDEAS_CONTENT = {
     ]
   }
 };
+
+const TIPS_LIST = [
+  "Conecte sua meta ao negócio: Pergunte-se 'Como desenvolver essa competência ajuda minha área a bater as metas do ano?'. Isso aumenta o apoio da liderança.",
+  "Feedback não é apenas sobre o passado. Peça 'Feedforward': pergunte 'O que posso fazer diferente no próximo projeto para ter mais impacto?'.",
+  "Não subestime o 20% (Relacionamentos). Mapeie quem são os tomadores de decisão que precisam conhecer seu trabalho e crie uma rotina de troca com eles.",
+  "Transforme teoria em processo. Ao terminar um curso (10%), crie um checklist ou ferramenta prática para o time. Isso consolida seu aprendizado e gera legado.",
+  "Evidência de sucesso deve ser observável. Em vez de 'melhorar comunicação', prefira 'apresentar os resultados mensais para a liderança com zero dúvidas sobre os dados'."
+];
 
 const TRANSLATIONS = {
   pt: {
@@ -144,12 +153,14 @@ const TRANSLATIONS = {
     step4_title: "Seu Plano Consolidado",
     step4_desc: "Revise com carinho. Este documento representa seu compromisso com você mesmo.",
     btn_export: "Baixar Documento (.doc)",
+    tip_title: "Insight de Carreira",
 
     // Final
     final_title: "Parabéns pela iniciativa!",
     final_desc: "Você deu o primeiro passo. Agora é hora de tirar do papel.",
-    final_path_label: "Próximo passo: Registre no Success Factors",
-    final_path: "Home > Objetivos > Metas",
+    final_path_label: "Próximo passo: Registre no",
+    final_path: "Success Factors",
+    final_subpath: "Home > Objetivos > Metas",
     final_alert: "Agende o alinhamento com seu líder para validar este plano. Se precisar de apoio, seu HRBP está à disposição.",
     btn_restart: "Criar Novo Plano",
 
@@ -209,11 +220,13 @@ const TRANSLATIONS = {
     step4_title: "Tu Plan Consolidado",
     step4_desc: "Revisa con cariño. Este documento representa tu compromiso contigo mismo.",
     btn_export: "Descargar Documento (.doc)",
+    tip_title: "Insight de Carrera",
 
     final_title: "¡Felicidades por la iniciativa!",
     final_desc: "Diste el primer paso. Ahora es momento de actuar.",
-    final_path_label: "Próximo paso: Registra en Success Factors",
-    final_path: "Inicio > Objetivos > Metas",
+    final_path_label: "Próximo paso: Registra en",
+    final_path: "Success Factors",
+    final_subpath: "Inicio > Objetivos > Metas",
     final_alert: "Agenda la alineación con tu líder para validar este plan. Si necesitas apoyo, tu HRBP está a disposición.",
     btn_restart: "Crear Nuevo Plan",
 
@@ -251,6 +264,7 @@ export default function PDIApp() {
   const [lang, setLang] = useState('pt');
   const [step, setStep] = useState(0);
   const [modalType, setModalType] = useState(null); 
+  const [tip, setTip] = useState(TIPS_LIST[0]);
   
   const [formData, setFormData] = useState({
     goal: '', competence: '',
@@ -260,6 +274,11 @@ export default function PDIApp() {
   });
 
   const t = TRANSLATIONS[lang];
+
+  // Randomizar Dica
+  useEffect(() => {
+    setTip(TIPS_LIST[Math.floor(Math.random() * TIPS_LIST.length)]);
+  }, []);
 
   // HANDLERS
   const handleChange = (e) => {
@@ -278,6 +297,7 @@ export default function PDIApp() {
       action10: '', measure10: '', date10: ''
     });
     setStep(0);
+    setTip(TIPS_LIST[Math.floor(Math.random() * TIPS_LIST.length)]);
   };
 
   const exportDoc = () => {
@@ -588,6 +608,15 @@ export default function PDIApp() {
                  </div>
                ))}
             </div>
+            
+            {/* Dica de Ouro */}
+            <div className="mt-8 pt-6 border-t border-slate-100 flex items-start gap-3 bg-indigo-50/50 p-4 rounded-xl">
+               <Sparkles className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
+               <div>
+                  <h4 className="font-bold text-indigo-900 text-sm mb-1">{t.tip_title}</h4>
+                  <p className="text-sm text-indigo-800 leading-relaxed">{tip}</p>
+               </div>
+            </div>
          </div>
       </div>
     </div>
@@ -605,8 +634,13 @@ export default function PDIApp() {
        <div className="w-full bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8 text-left relative overflow-hidden group hover:border-indigo-200 transition-colors">
           <div className="absolute left-0 top-0 w-1 h-full bg-indigo-500" />
           <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{t.final_path_label}</p>
-          <div className="flex items-center gap-2 font-bold text-indigo-900 text-lg">
-             <CornerDownRight className="w-5 h-5 text-indigo-500" /> {t.final_path}
+          <div className="flex flex-col gap-1">
+             <div className="flex items-center gap-2 font-bold text-indigo-900 text-xl">
+                <Target className="w-6 h-6 text-indigo-500" /> {t.final_path}
+             </div>
+             <div className="flex items-center gap-2 text-slate-500 text-sm ml-8">
+                <CornerDownRight className="w-4 h-4" /> {t.final_subpath}
+             </div>
           </div>
        </div>
 
@@ -641,8 +675,7 @@ export default function PDIApp() {
                 <TrendingUp className="text-white w-6 h-6" />
              </div>
              <div>
-                <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest block leading-none mb-1">Meu Plano</span>
-                <h1 className="font-extrabold text-xl text-slate-800 tracking-tight leading-none">{t.header_title}</h1>
+                <h1 className="font-extrabold text-2xl text-blue-900 tracking-tight leading-none">{t.header_title}</h1>
              </div>
           </div>
           <button 
@@ -656,15 +689,6 @@ export default function PDIApp() {
 
       {/* BODY */}
       <main className="max-w-5xl mx-auto px-6 py-12 flex-grow w-full">
-        {step > 0 && step < 5 && (
-           <div className="w-full bg-slate-200 h-1.5 rounded-full mb-12 overflow-hidden">
-              <div 
-                className="bg-indigo-600 h-full rounded-full transition-all duration-700 ease-out" 
-                style={{ width: `${(step/4)*100}%` }} 
-              />
-           </div>
-        )}
-        
         {step === 0 && renderStep0()}
         {step === 1 && renderStep1()}
         {step === 2 && renderStep2()}
