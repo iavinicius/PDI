@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kai | Inteligência Executiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .chat-container { height: calc(100vh - 180px); }
+        .sidebar-active { border-bottom: 3px solid #4f46e5; color: #4f46e5; font-weight: 700; }
+        .loader {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4f46e5;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Navbar Superior -->
+    <header class="bg-white border-b border-gray-200 shadow-sm z-10">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold text-indigo-900 flex items-center gap-2">
+                    Kai <span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded uppercase tracking-tighter">Pro</span>
+                </h1>
+                <div class="h-6 w-px bg-gray-200 mx-2"></div>
+                <nav class="flex gap-6 h-16">
+                    <button onclick="setMode('whatsapp')" id="btn-whatsapp" class="text-sm text-gray-500 hover:text-indigo-600 px-2 transition-all sidebar-active">WhatsApp</button>
+                    <button onclick="setMode('email')" id="btn-email" class="text-sm text-gray-500 hover:text-indigo-600 px-2 transition-all">E-mail</button>
+                    <button onclick="setMode('teams')" id="btn-teams" class="text-sm text-gray-500 hover:text-indigo-600 px-2 transition-all">Teams</button>
+                    <button onclick="setMode('translation')" id="btn-translation" class="text-sm text-gray-500 hover:text-indigo-600 px-2 transition-all">Tradução</button>
+                </nav>
+            </div>
+            <div class="hidden md:block text-right">
+                <p class="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Desenvolvido por</p>
+                <p class="text-xs font-semibold text-indigo-900">Vinicius Carlos</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Área de Chat -->
+    <main id="chat-box" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 chat-container bg-slate-50">
+        
+        <!-- Mensagem de Boas-vindas -->
+        <div class="max-w-3xl mx-auto flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">K</div>
+            <div class="space-y-2">
+                <p class="text-sm font-medium text-gray-500">Kai · Agora</p>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-gray-200 shadow-sm text-gray-800 max-w-xl">
+                    Olá, Vini. Pronto para transformar rascunhos em estratégia? Escolha o canal acima e me diga o que precisa enviar.
+                </div>
+            </div>
+        </div>
+
+        <div id="messages-anchor"></div>
+    </main>
+
+    <!-- Rodapé de Input -->
+    <footer class="bg-white border-t border-gray-200 p-4 pb-8">
+        <div class="max-w-3xl mx-auto space-y-4">
+            
+            <!-- Toggles de Contexto -->
+            <div class="flex items-center justify-between px-2">
+                <div class="flex gap-4">
+                    <div id="wa-options" class="flex items-center gap-2">
+                        <label class="flex items-center cursor-pointer group">
+                            <input type="checkbox" id="use-slang" class="sr-only peer" checked>
+                            <div class="w-8 h-4 bg-gray-200 rounded-full peer peer-checked:bg-indigo-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-4 relative border border-gray-300"></div>
+                            <span class="ml-2 text-[10px] font-bold text-gray-500 uppercase">Abreviações</span>
+                        </label>
+                    </div>
+                    
+                    <div id="translation-options" class="hidden">
+                        <select id="target-lang" class="bg-gray-50 border border-gray-200 text-gray-600 text-[10px] font-bold uppercase rounded px-2 py-0.5 focus:outline-none">
+                            <option value="Inglês Americano">Inglês</option>
+                            <option value="Espanhol">Espanhol</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Botão Urgente -->
+                <button id="urgent-toggle" onclick="toggleUrgent()" class="flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 transition-all hover:bg-red-50 group">
+                    <div id="urgent-dot" class="w-2 h-2 rounded-full bg-gray-300"></div>
+                    <span id="urgent-label" class="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-hover:text-red-600">Modo Urgente</span>
+                </button>
+            </div>
+
+            <!-- Input Box -->
+            <div class="relative bg-white border border-gray-300 rounded-2xl shadow-sm focus-within:ring-2 focus-within:ring-indigo-100 transition-all overflow-hidden">
+                <textarea 
+                    id="user-input"
+                    rows="1"
+                    class="w-full p-4 pr-16 text-gray-700 focus:outline-none resize-none max-h-40"
+                    placeholder="Escreva o rascunho rápido aqui..."
+                    oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                
+                <div class="absolute right-2 bottom-2 flex items-center gap-2">
+                    <div id="loading-spinner" class="loader hidden mr-2"></div>
+                    <button onclick="sendMessage()" class="p-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 14-7-7 14-2-7-5-2Z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const apiKey = ""; // Sua Chave Gemini aqui
+        let currentMode = 'whatsapp';
+        let isUrgent = false;
+
+        function setMode(mode) {
+            currentMode = mode;
+            const buttons = ['whatsapp', 'email', 'teams', 'translation'];
+            buttons.forEach(b => document.getElementById(`btn-${b}`).classList.remove('sidebar-active'));
+            document.getElementById(`btn-${mode}`).classList.add('sidebar-active');
+            
+            document.getElementById('wa-options').classList.toggle('hidden', mode !== 'whatsapp');
+            document.getElementById('translation-options').classList.toggle('hidden', mode !== 'translation');
+            document.getElementById('user-input').placeholder = `Escrevendo para ${mode.toUpperCase()}...`;
+        }
+
+        function toggleUrgent() {
+            isUrgent = !isUrgent;
+            const dot = document.getElementById('urgent-dot');
+            const label = document.getElementById('urgent-label');
+            const toggle = document.getElementById('urgent-toggle');
+            
+            if (isUrgent) {
+                dot.classList.replace('bg-gray-300', 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]');
+                label.classList.replace('text-gray-500', 'text-red-600');
+                toggle.classList.add('border-red-200', 'bg-red-50');
+            } else {
+                dot.classList.replace('bg-red-500', 'bg-gray-300');
+                dot.classList.remove('shadow-[0_0_8px_rgba(239,68,68,0.6)]');
+                label.classList.replace('text-red-600', 'text-gray-500');
+                toggle.classList.remove('border-red-200', 'bg-red-50');
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // Add User Message to UI
+            addMessageToUI('user', text);
+            input.value = '';
+            input.style.height = 'auto';
+
+            // Start Loading
+            document.getElementById('loading-spinner').classList.remove('hidden');
+
+            const useSlang = document.getElementById('use-slang').checked;
+            const targetLang = document.getElementById('target-lang').value;
+
+            const systemPrompt = `Você é o Kai, Assistente Executivo do Vini (HRBP e Psicólogo).
+            MODO ATUAL: ${currentMode.toUpperCase()}
+            ${isUrgent ? 'MODO URGENTE ATIVADO: Seja o mais conciso possível. Máximo 2 frases. Direto ao ponto.' : ''}
+            
+            MISSÃO: Revisar rascunhos eliminando ruído de pressa, mantendo empatia e autoridade.
+            ANÁLISE DE SENTIMENTO: Você deve obrigatoriamente realizar uma análise de sentimento técnica voltada para RH.
+            
+            REGRAS DE CANAL:
+            - WhatsApp: ${useSlang ? 'Abreviações naturais (vc, tbm, abs).' : 'Natural sem gírias.'} Curto, fluido.
+            - Email: Formal-leve, sem emojis, assunto claro.
+            - Teams: Corporativo empático.
+            - Tradução: Revisar em PT e traduzir para ${targetLang}.
+            
+            RETORNE SEMPRE UM JSON COM:
+            {
+                "texto": "A mensagem revisada aqui",
+                "analise_sentimento": "Um feedback curto (1 frase) sobre o tom e impacto da mensagem original no clima organizacional ou relação interpessoal.",
+                "alerta": "Se houver risco de ruído agressivo ou passivo-agressivo, avise aqui. Senão, vazio."
+            }`;
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: text }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        generationConfig: { responseMimeType: "application/json" }
+                    })
+                });
+
+                const data = await response.json();
+                const result = JSON.parse(data.candidates[0].content.parts[0].text);
+                
+                addMessageToUI('kai', result.texto, result.analise_sentimento, result.alerta);
+
+            } catch (error) {
+                addMessageToUI('kai', "Desculpe, Vini. Tive um problema técnico na conexão. Verifique se a API Key está configurada corretamente.");
+            } finally {
+                document.getElementById('loading-spinner').classList.add('hidden');
+            }
+        }
+
+        function addMessageToUI(sender, text, sentiment = null, alert = null) {
+            const chatBox = document.getElementById('chat-box');
+            const anchor = document.getElementById('messages-anchor');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `max-w-3xl mx-auto flex gap-4 ${sender === 'user' ? 'flex-row-reverse' : ''} animate-in fade-in duration-500`;
+
+            const icon = sender === 'user' 
+                ? '<div class="w-8 h-8 rounded-full bg-slate-300 flex items-center justify-center text-slate-600 text-xs font-bold shrink-0">V</div>'
+                : '<div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">K</div>';
+
+            let contentHtml = `
+                <div class="space-y-2 flex-1 ${sender === 'user' ? 'text-right' : ''}">
+                    <p class="text-sm font-medium text-gray-400">${sender === 'user' ? 'Vini' : 'Kai'} · Agora</p>
+                    <div class="${sender === 'user' ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white text-gray-800 rounded-tl-none border-gray-200'} p-4 rounded-2xl shadow-sm inline-block max-w-full text-left relative group">
+                        <div class="whitespace-pre-wrap">${text}</div>
+                        ${sender === 'kai' ? `
+                            <button onclick="copyRaw(this)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1.5 bg-gray-50 rounded-lg border border-gray-200 text-gray-400 hover:text-indigo-600 transition-all shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                            </button>
+                        ` : ''}
+                    </div>
+                    ${sentiment ? `
+                        <div class="mt-2 flex flex-col gap-1 items-start">
+                            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded">Sentimento & Clima</span>
+                            <p class="text-xs text-gray-500 italic px-1">${sentiment}</p>
+                        </div>
+                    ` : ''}
+                    ${alert ? `
+                        <div class="mt-2 bg-amber-50 border border-amber-100 p-2 rounded-lg text-xs text-amber-700 flex gap-2 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            ${alert}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            messageDiv.innerHTML = icon + contentHtml;
+            chatBox.insertBefore(messageDiv, anchor);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function copyRaw(btn) {
+            const text = btn.parentElement.querySelector('.whitespace-pre-wrap').innerText;
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            
+            const originalSvg = btn.innerHTML;
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+            setTimeout(() => btn.innerHTML = originalSvg, 2000);
+        }
+
+        // Permitir envio com Enter (sem Shift)
+        document.getElementById('user-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
