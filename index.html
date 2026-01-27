@@ -65,7 +65,7 @@
         <div class="glass-panel border-b border-white/50 shadow-sm">
             <div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <!-- ÍCONE: Bússola (Direção/Norte) -->
+                    <!-- ÍCONE: Bússola -->
                     <div class="bg-gradient-to-tr from-violet-600 to-fuchsia-500 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-violet-200 text-white transform hover:scale-105 transition-all duration-300">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>
                     </div>
@@ -77,7 +77,7 @@
                 
                 <div class="flex flex-col items-end gap-1.5">
                     <span class="text-[8px] text-slate-400 font-semibold tracking-wide uppercase opacity-70">Dev: Vinicius Carlos</span>
-                    <!-- BOTÃO IDIOMA: Estilo Card (Glassmorphism) -->
+                    <!-- BOTÃO IDIOMA -->
                     <button onclick="toggleLanguage()" class="glass-panel group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer border border-white/60">
                         <span class="text-xs font-bold text-slate-500 group-hover:text-violet-700 transition-colors hidden sm:inline" data-key="lang_label_desc">Escolha seu idioma:</span>
                         <div class="flex items-center gap-1.5 bg-violet-50 px-2 py-0.5 rounded-md border border-violet-100 group-hover:border-violet-200 transition-colors">
@@ -95,7 +95,6 @@
         
         <!-- STEP 0: WELCOME -->
         <div id="step-0" class="step-content fade-in max-w-3xl mx-auto text-center py-8">
-            <!-- BADGE -->
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white border border-violet-100 text-violet-600 shadow-sm mb-8 hover:scale-105 transition-transform cursor-default">
                 <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
                 <span data-key="welcome_badge">Sua Carreira</span>
@@ -105,7 +104,6 @@
             
             <p class="text-lg md:text-xl text-slate-500 leading-relaxed mb-10 max-w-2xl mx-auto font-light" data-key="welcome_desc">Este é um espaço seguro para você refletir. O PDI não é uma burocracia, é a estratégia da sua própria evolução.</p>
             
-            <!-- CARDS (Estilo Glass Panel Premium) -->
             <div class="grid md:grid-cols-2 gap-6 mb-12 text-left">
                 <!-- Time Card -->
                 <div class="glass-panel p-8 rounded-3xl hover:border-violet-200 transition-all shadow-sm hover:shadow-xl group relative overflow-hidden">
@@ -119,12 +117,11 @@
                     </div>
                 </div>
 
-                <!-- Protagonist Card (ICON NOVO: ESTRELA) -->
+                <!-- Protagonist Card -->
                 <div class="glass-panel p-8 rounded-3xl hover:border-violet-200 transition-all shadow-sm hover:shadow-xl group relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-violet-100/50 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-violet-100 group-hover:scale-110"></div>
                     <div class="relative z-10">
                         <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-violet-600 shadow-sm mb-5 border border-violet-50 group-hover:-translate-y-1 transition-transform">
-                            <!-- New Icon: Star / Sparkle (Protagonist = Star of the show) -->
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </div>
                         <h3 class="font-bold text-slate-800 text-lg mb-2 group-hover:text-violet-700 transition-colors">Protagonismo</h3>
@@ -160,7 +157,6 @@
                         <h3 class="font-bold text-xl text-slate-800 mb-2 group-hover:text-violet-700 transition-colors" data-key="opt_current_title">Fortalecer Posição Atual</h3>
                         <p class="text-sm text-slate-500 leading-relaxed" data-key="opt_current_desc">Foco na excelência, aprofundamento técnico e desenvolvimento de soft skills para a função.</p>
                     </div>
-                    <!-- Check icon -->
                     <div id="check-current" class="hidden absolute bottom-6 right-6 bg-violet-600 text-white rounded-full p-1.5 shadow-lg animate-bounce">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
@@ -177,7 +173,6 @@
                         <h3 class="font-bold text-xl text-slate-800 mb-2 group-hover:text-fuchsia-700 transition-colors" data-key="opt_future_title">Próximo Passo</h3>
                         <p class="text-sm text-slate-500 leading-relaxed" data-key="opt_future_desc">Preparação para novos desafios, expansão de escopo e competências comportamentais de liderança.</p>
                     </div>
-                    <!-- Check icon -->
                     <div id="check-future" class="hidden absolute bottom-6 right-6 bg-fuchsia-600 text-white rounded-full p-1.5 shadow-lg animate-bounce">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
@@ -350,14 +345,10 @@
             </div>
 
             <div class="bg-white/90 backdrop-blur rounded-[2rem] p-10 shadow-2xl shadow-slate-200 border border-white space-y-10 relative overflow-hidden">
-                <!-- Decoratrive background blob inside paper -->
                 <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-violet-100/50 to-transparent rounded-bl-full pointer-events-none"></div>
 
-                <div class="relative z-10" id="review-content">
-                    <!-- Dynamic Content -->
-                </div>
+                <div class="relative z-10" id="review-content"></div>
                 
-                <!-- Dica de Ouro -->
                 <div class="mt-8 pt-6 border-t border-slate-100 flex items-start gap-4 bg-gradient-to-r from-violet-50 to-transparent p-6 rounded-2xl relative z-10">
                     <div class="p-2 bg-white rounded-lg shadow-sm text-violet-600">
                          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H3"/></svg>
@@ -370,8 +361,44 @@
             </div>
         </div>
 
-        <!-- STEP 7: FINAL -->
-        <div id="step-7" class="step-content hidden fade-in flex flex-col items-center justify-center min-h-[50vh] max-w-xl mx-auto text-center">
+        <!-- NEW STEP 7: SYSTEM REGISTRATION WARNING -->
+        <div id="step-7" class="step-content hidden fade-in flex flex-col items-center justify-center min-h-[50vh] max-w-xl mx-auto text-center px-4">
+            
+            <div class="bg-white/90 backdrop-blur-md rounded-[2.5rem] shadow-2xl shadow-amber-200/50 border-4 border-amber-100 p-10 w-full relative overflow-hidden">
+                <!-- Background Decoration -->
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-amber-100 rounded-full blur-3xl opacity-60"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-orange-100 rounded-full blur-3xl opacity-60"></div>
+                
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mb-6 text-amber-600 shadow-inner">
+                        <svg class="w-10 h-10 animate-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M3.4 18.2 12 3.8l8.6 14.4H3.4Z"/></svg>
+                    </div>
+
+                    <h2 class="text-3xl font-extrabold text-slate-800 mb-4" data-key="warn_title">Atenção Necessária</h2>
+                    
+                    <p class="text-slate-600 text-lg mb-8 leading-relaxed font-medium" data-key="warn_desc">
+                        O PDI não termina aqui. Ele é um documento vivo e precisa estar visível para a companhia.
+                    </p>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 w-full text-left mb-8">
+                        <p class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-3 text-center" data-key="warn_path_label">Assegure o registro no Success Factors</p>
+                        <div class="flex items-center justify-center gap-2 font-bold text-slate-800 text-lg bg-white p-3 rounded-xl border border-amber-100 shadow-sm">
+                            <svg class="w-5 h-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <span data-key="warn_path">Home > Objetivos > Metas</span>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-slate-500 italic mb-8" data-key="warn_note">O registro oficial garante o suporte da liderança e a visibilidade para oportunidades futuras.</p>
+
+                    <button onclick="nextStep()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-slate-800 hover:scale-[1.02] transition-all shadow-xl shadow-slate-300">
+                        <span data-key="warn_btn">Entendi, vou registrar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 8 (OLD 7): FINAL -->
+        <div id="step-8" class="step-content hidden fade-in flex flex-col items-center justify-center min-h-[50vh] max-w-xl mx-auto text-center">
             <div class="w-28 h-28 bg-gradient-to-tr from-emerald-100 to-teal-50 rounded-full flex items-center justify-center mb-8 shadow-inner relative">
                 <svg class="w-12 h-12 text-teal-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
                 <div class="absolute inset-0 rounded-full animate-ping opacity-20 bg-emerald-400"></div>
@@ -380,21 +407,6 @@
             <h2 class="text-4xl font-bold text-slate-800 mb-4" data-key="final_title">Parabéns pela iniciativa!</h2>
             <p class="text-lg text-slate-500 mb-10 leading-relaxed" data-key="final_desc">O primeiro passo foi dado. Agora é hora de tirar do papel.</p>
             
-            <div class="w-full bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 mb-8 text-left relative overflow-hidden group border border-slate-100 hover:border-violet-200 transition-all">
-                <div class="absolute left-0 top-0 w-1.5 h-full bg-violet-500"></div>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2" data-key="final_path_label">Próximo passo: Registre no</p>
-                <div class="flex flex-col gap-1">
-                    <div class="flex items-center gap-2 font-bold text-violet-900 text-xl">
-                        <svg class="w-6 h-6 text-violet-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                        <span data-key="final_path">Success Factors</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-slate-500 text-sm ml-8">
-                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
-                        <span data-key="final_subpath">Home > Objetivos > Metas</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="bg-amber-50/80 border border-amber-100 rounded-2xl p-6 mb-10 flex gap-4 items-start text-left w-full">
                 <div class="bg-amber-100 p-2 rounded-lg text-amber-600 flex-shrink-0">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -551,10 +563,9 @@
                 welcome_title: "Vamos desenhar seu futuro?",
                 welcome_desc: "Este é um espaço seguro para você refletir. O PDI não é uma burocracia, é a estratégia da sua própria evolução.",
                 welcome_note: "Você é o protagonista. Use este rascunho para organizar suas ideias com clareza antes de alinhar com sua liderança.",
-                // NEW TEXT
                 welcome_time_warn: "Que tal reservar 20 minutos para focar no que realmente importa: você? Ao final, geramos um arquivo prontinho para facilitar o registro no Success Factors.",
                 
-                step_reflect_title: "Definindo o Foco",
+                step_reflect_title: "Definiendo o Foco",
                 step_reflect_sub: "Antes de traçar a meta, qual é o seu objetivo principal neste ciclo?",
                 step_reflect_badge: "Fase 1 • Direção",
                 
@@ -576,7 +587,7 @@
                 step4_badge: "Fase 6 • Revisão",
                 
                 final_title: "Parabéns pela iniciativa!",
-                final_path: "Success Factors",
+                // Removed redundant items
                 btn_export: "Baixar Documento (.doc)",
                 label_evidence: "Evidência de Sucesso",
                 label_date: "Data Limite",
@@ -630,10 +641,16 @@
                 dl_modal_skip: "Seguir sem baixar",
                 
                 tip_title: "Insight de Carreira",
-                final_path_label: "Próximo passo: Registre no",
-                final_subpath: "Home > Objetivos > Metas",
 
-                lang_label_desc: "Escolha seu idioma:"
+                lang_label_desc: "Escolha seu idioma:",
+                
+                // NEW WARNING STEP 7
+                warn_title: "Atenção Necessária",
+                warn_desc: "O PDI não termina aqui. Ele é um documento vivo e precisa estar visível para a companhia.",
+                warn_path_label: "Assegure o registro no Success Factors",
+                warn_path: "Home > Objetivos > Metas",
+                warn_note: "O registro oficial garante o suporte da liderança e a visibilidade para oportunidades futuras.",
+                warn_btn: "Entendi, vou registrar"
             },
             es: {
                 header_title: "Jornada de Carrera",
@@ -643,7 +660,6 @@
                 welcome_title: "¿Diseñamos tu futuro?",
                 welcome_desc: "Este es un espacio seguro para reflexionar. El PDI no es una burocracia, es la estrategia de tu propia evolución.",
                 welcome_note: "Eres el protagonista. Usa este borrador para organizar tus ideas con claridad antes de alinear con tu liderazgo.",
-                // TRANSLATED NEW TEXT
                 welcome_time_warn: "¿Qué tal reservar 20 minutos para enfocarte en lo que realmente importa: tú? Al final, generamos un archivo listo para facilitar el registro en Success Factors.",
                 
                 step_reflect_title: "Definiendo el Enfoque",
@@ -668,7 +684,6 @@
                 step4_badge: "Fase 6 • Revisión",
                 
                 final_title: "¡Felicidades por la iniciativa!",
-                final_path: "Success Factors",
                 btn_export: "Descargar Documento (.doc)",
                 label_evidence: "Evidencia de Éxito",
                 label_date: "Fecha Límite",
@@ -722,10 +737,16 @@
                 dl_modal_skip: "Seguir sin descargar",
                 
                 tip_title: "Insight de Carrera",
-                final_path_label: "Próximo paso: Registra en",
-                final_subpath: "Inicio > Objetivos > Metas",
 
-                lang_label_desc: "Cambiar idioma:"
+                lang_label_desc: "Cambiar idioma:",
+
+                // NEW WARNING STEP 7
+                warn_title: "Atención Necesaria",
+                warn_desc: "El PDI no termina aquí. Es un documento vivo y necesita ser visible para la compañía.",
+                warn_path_label: "Asegure el registro en Success Factors",
+                warn_path: "Inicio > Objetivos > Metas",
+                warn_note: "El registro oficial garantiza el apoyo del liderazgo y la visibilidad para futuras oportunidades.",
+                warn_btn: "Entendido, voy a registrar"
             }
         };
 
@@ -755,16 +776,14 @@
             currentLang = currentLang === 'pt' ? 'es' : 'pt';
             document.getElementById('lang-label').innerText = currentLang.toUpperCase();
             updateLanguage();
-            updateTip(); // Update tip language
+            updateTip(); 
             
-            // Update dynamic reflection questions if visible
             if (reflectionChoice && currentStep === 2) {
                 const qList = document.getElementById('question-list');
                 if(qList) {
                     qList.innerHTML = DATA.reflectionQuestions[currentLang][reflectionChoice].map(q => `<li class="mb-2">${q}</li>`).join('');
                 }
             }
-            // Update Review if visible
             if (currentStep === 6) {
                 generateReview();
             }
@@ -772,7 +791,6 @@
 
         function updateLanguage() {
             const t = TRANSLATIONS[currentLang];
-            // Text Content
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if(t[key]) {
@@ -780,7 +798,6 @@
                     else el.innerText = t[key];
                 }
             });
-            // Placeholders
             document.querySelectorAll('[data-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-placeholder');
                 if(t[key]) el.placeholder = t[key];
@@ -794,7 +811,8 @@
             if(currentEl) currentEl.classList.remove('hidden');
             
             const footer = document.getElementById('footer-nav');
-            // Steps 1 to 6 show footer (Welcome and Final do not)
+            // Show footer for steps 1 through 6. 
+            // Step 7 (Warning) and Step 8 (Final) have their own flow/buttons.
             if(step > 0 && step < 7) footer.classList.remove('hidden');
             else footer.classList.add('hidden');
 
@@ -817,7 +835,6 @@
 
         function skipDownload() {
             document.getElementById('download-modal').classList.add('hidden');
-            // Mark as if downloaded so we can proceed
             hasDownloaded = true; 
             nextStep();
         }
@@ -828,13 +845,7 @@
         }
 
         function nextStep() {
-            if (currentStep === 6) {
-                // If button clicked directly in footer
-                if (!hasDownloaded) {
-                    document.getElementById('download-modal').classList.remove('hidden');
-                    return;
-                }
-            }
+            // Logic handled by checkDownloadAndFinish for Step 6
 
             if (currentStep === 1) {
                 if (!reflectionChoice) {
@@ -852,7 +863,8 @@
             if (currentStep === 4) generateMetricsFields(); 
             if (currentStep === 5) generateReview(); 
             
-            if (currentStep < 7) {
+            // Allow going up to Step 8
+            if (currentStep < 8) {
                 currentStep++;
                 showStep(currentStep);
             }
@@ -878,25 +890,16 @@
         // --- STEP 1 LOGIC (REFLECTION) ---
         function selectReflection(choice) {
             reflectionChoice = choice;
-            
-            // UI Reset
             document.querySelectorAll('[id^="card-"]').forEach(el => el.classList.remove('radio-card-selected'));
             document.querySelectorAll('[id^="check-"]').forEach(el => el.classList.add('hidden'));
-            
-            // Active State Safe Check
             const card = document.getElementById(`card-${choice}`);
             const check = document.getElementById(`check-${choice}`);
-            
             if(card) card.classList.add('radio-card-selected');
             if(check) check.classList.remove('hidden');
-            
-            // Prepare Questions for Step 2
             const qList = document.getElementById('question-list');
             if(qList) {
                 qList.innerHTML = DATA.reflectionQuestions[currentLang][choice].map(q => `<li class="mb-2">${q}</li>`).join('');
             }
-            
-            // Advance
             setTimeout(() => {
                 nextStep();
             }, 300);
@@ -908,24 +911,19 @@
             const container = document.getElementById('metrics-container');
             if(!container) return;
             container.innerHTML = '';
-            
             const getVal = (id) => document.getElementById(id)?.value || '';
-            
             const t = TRANSLATIONS[currentLang];
             const titles = {
                 '70': currentLang === 'pt' ? '70% Experiência' : '70% Experiencia',
                 '20': currentLang === 'pt' ? '20% Relacionamentos' : '20% Relaciones',
                 '10': currentLang === 'pt' ? '10% Educação' : '10% Educación'
             };
-            
             const actions = [
                 { id: '70', text: getVal('input-70'), color: 'emerald', title: titles['70'] },
                 { id: '20', text: getVal('input-20'), color: 'amber', title: titles['20'] },
                 { id: '10', text: getVal('input-10'), color: 'blue', title: titles['10'] }
             ];
-
             let hasContent = false;
-
             actions.forEach(act => {
                 if(act.text.trim()) {
                     hasContent = true;
@@ -950,7 +948,6 @@
                     container.insertAdjacentHTML('beforeend', html);
                 }
             });
-
             if(!hasContent) {
                 container.innerHTML = '<div class="text-center p-8 bg-slate-50/50 rounded-xl text-slate-400 border border-slate-200 border-dashed">Nenhuma ação preenchida anteriormente. Volte e preencha.</div>';
             }
@@ -974,7 +971,6 @@
                 '10': currentLang === 'pt' ? '10% Educação' : '10% Educación'
             };
             
-            // Build Actions HTML
             const actions = [
                 { id: '70', text: getVal('input-70'), meas: getVal('measure-70'), date: getVal('date-70'), title: titles['70'], color: 'text-emerald-600', bg: 'bg-emerald-50' },
                 { id: '20', text: getVal('input-20'), meas: getVal('measure-20'), date: getVal('date-20'), title: titles['20'], color: 'text-amber-600', bg: 'bg-amber-50' },
