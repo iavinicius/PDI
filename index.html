@@ -3,180 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDI - Plano de Desenvolvimento Individual</title>
+    <title>PDI - Jornada de Carreira</title>
     
-    <!-- Tailwind CSS (Estilização) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts (Inter) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Transições Suaves */
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Fundo Gradiente Animado Suave */
+        .bg-gradient-animate {
+            background: linear-gradient(-45deg, #fdfbf7, #f3e8ff, #e0e7ff, #f0f9ff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        /* Esconder scrollbar padrão mas permitir scroll */
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Estilo dos Inputs Focados */
-        .input-focus:focus { 
-            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2); 
-            border-color: #4f46e5;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+        
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .input-focus:focus { 
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1); 
+            border-color: #8b5cf6;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .radio-card-selected { 
+            border-color: #8b5cf6; 
+            background: linear-gradient(to bottom right, #ffffff, #f5f3ff);
+            box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.2);
+        }
+        
+        /* Scrollbar customizada */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-gradient-animate text-slate-700 antialiased min-h-screen flex flex-col selection:bg-violet-200 selection:text-violet-900">
 
     <!-- HEADER -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-indigo-100 sticky top-0 z-40">
-        <div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <div class="bg-indigo-600 w-10 h-10 rounded-lg flex items-center justify-center shadow-md shadow-indigo-200">
-                    <!-- Icon TrendingUp -->
-                    <svg class="text-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+    <header class="fixed top-0 w-full z-40 transition-all duration-300">
+        <div class="glass-panel border-b border-white/50 shadow-sm">
+            <div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <!-- ÍCONE: Bússola (Direção/Norte) -->
+                    <div class="bg-gradient-to-tr from-violet-600 to-fuchsia-500 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-violet-200 text-white transform hover:scale-105 transition-all duration-300">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-slate-800 tracking-tight leading-none" data-key="header_title">Jornada de Carreira</h1>
+                        <p class="text-xs text-slate-500 mt-0.5 font-medium" data-key="header_subtitle">Seu Plano de Desenvolvimento Individual</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="font-bold text-xl md:text-2xl text-blue-900 tracking-tight leading-none" id="app-title">Plano de Desenvolvimento Individual</h1>
+                
+                <div class="flex flex-col items-end gap-1.5">
+                    <span class="text-[8px] text-slate-400 font-semibold tracking-wide uppercase opacity-70">Dev: Vinicius Carlos</span>
+                    <!-- BOTÃO IDIOMA: Estilo Card (Glassmorphism) -->
+                    <button onclick="toggleLanguage()" class="glass-panel group flex items-center gap-3 px-4 py-2 rounded-xl hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer border border-white/60">
+                        <span class="text-xs font-bold text-slate-500 group-hover:text-violet-700 transition-colors hidden sm:inline" data-key="lang_label_desc">Escolha seu idioma:</span>
+                        <div class="flex items-center gap-1.5 bg-violet-50 px-2 py-0.5 rounded-md border border-violet-100 group-hover:border-violet-200 transition-colors">
+                            <span class="w-1.5 h-1.5 rounded-full bg-violet-500 group-hover:animate-pulse"></span>
+                            <span id="lang-label" class="text-xs font-black text-violet-700">PT</span>
+                        </div>
+                    </button>
                 </div>
             </div>
-            <button onclick="toggleLanguage()" class="text-xs font-bold text-slate-500 hover:text-indigo-600 bg-slate-100 px-4 py-2 rounded-full transition-colors flex items-center gap-2 border border-slate-200">
-                <!-- Icon Globe -->
-                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                <span id="lang-label">PT</span>
-            </button>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-5xl mx-auto w-full px-6 py-10 pb-32">
+    <main class="flex-grow max-w-5xl mx-auto w-full px-6 pt-32 pb-32">
         
         <!-- STEP 0: WELCOME -->
-        <div id="step-0" class="step-content fade-in max-w-2xl mx-auto text-center py-8">
-            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100 mb-6 inline-block" data-key="welcome_badge">Sua Carreira</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-6 tracking-tight" data-key="welcome_title">Vamos desenhar seu futuro?</h2>
-            <p class="text-xl text-slate-500 leading-relaxed mb-10" data-key="welcome_desc">Este é um espaço seguro para você refletir sobre onde está e onde quer chegar. O PDI não é uma formalidade, é a estratégia da sua evolução.</p>
-            
-            <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 flex gap-4 text-left mb-10 items-start">
-                <div class="bg-white p-2 rounded-lg h-fit shadow-sm text-indigo-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                </div>
-                <p class="text-indigo-900 font-medium text-sm leading-relaxed" data-key="welcome_note">Lembre-se: Você é o protagonista. Use este rascunho para estruturar suas ideias antes de conversar com sua liderança.</p>
+        <div id="step-0" class="step-content fade-in max-w-3xl mx-auto text-center py-8">
+            <!-- BADGE -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white border border-violet-100 text-violet-600 shadow-sm mb-8 hover:scale-105 transition-transform cursor-default">
+                <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+                <span data-key="welcome_badge">Sua Carreira</span>
             </div>
             
-            <button onclick="nextStep()" class="bg-slate-900 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-slate-800 hover:scale-105 transition-all shadow-xl flex items-center gap-2 mx-auto">
-                <span data-key="btn_start">Iniciar Jornada</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <h2 class="text-4xl md:text-6xl font-extrabold text-slate-800 mb-6 tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600" data-key="welcome_title">Vamos desenhar seu futuro?</h2>
+            
+            <p class="text-lg md:text-xl text-slate-500 leading-relaxed mb-10 max-w-2xl mx-auto font-light" data-key="welcome_desc">Este é um espaço seguro para você refletir. O PDI não é uma burocracia, é a estratégia da sua própria evolução.</p>
+            
+            <!-- CARDS (Estilo Glass Panel Premium) -->
+            <div class="grid md:grid-cols-2 gap-6 mb-12 text-left">
+                <!-- Time Card -->
+                <div class="glass-panel p-8 rounded-3xl hover:border-violet-200 transition-all shadow-sm hover:shadow-xl group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-100/50 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-orange-100 group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-orange-500 shadow-sm mb-5 border border-orange-50 group-hover:-translate-y-1 transition-transform">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-2 group-hover:text-orange-600 transition-colors">Tempo de Qualidade</h3>
+                        <p class="text-slate-600 font-medium text-sm leading-relaxed" data-key="welcome_time_warn">Que tal reservar 20 minutos para focar no que realmente importa: você? Ao final, geramos um arquivo prontinho para facilitar o registro no Success Factors.</p>
+                    </div>
+                </div>
+
+                <!-- Protagonist Card (ICON NOVO: ESTRELA) -->
+                <div class="glass-panel p-8 rounded-3xl hover:border-violet-200 transition-all shadow-sm hover:shadow-xl group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-violet-100/50 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-violet-100 group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-violet-600 shadow-sm mb-5 border border-violet-50 group-hover:-translate-y-1 transition-transform">
+                            <!-- New Icon: Star / Sparkle (Protagonist = Star of the show) -->
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-2 group-hover:text-violet-700 transition-colors">Protagonismo</h3>
+                        <p class="text-slate-600 font-medium text-sm leading-relaxed" data-key="welcome_note">Você é o protagonista. Use este rascunho para organizar suas ideias com clareza antes de alinhar com sua liderança.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="nextStep()" class="group relative bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl shadow-slate-300/50 hover:shadow-slate-400/50 hover:-translate-y-1 transition-all overflow-hidden mx-auto flex items-center gap-3">
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-violet-600 to-fuchsia-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span class="relative z-10" data-key="btn_start">Iniciar Jornada</span>
+                <svg class="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </button>
         </div>
 
-        <!-- STEP 1: DIRECTION -->
-        <div id="step-1" class="step-content hidden fade-in max-w-3xl mx-auto">
+        <!-- STEP 1: REFLECTION CHOICE -->
+        <div id="step-1" class="step-content hidden fade-in max-w-4xl mx-auto">
             <div class="text-center mb-10">
-                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step1_badge">Direção</span>
-                <h2 class="text-3xl font-bold text-slate-800 mt-4 mb-2" data-key="step1_title">Qual é o seu foco?</h2>
-                <p class="text-slate-500" data-key="step1_sub">Definir o destino é o primeiro passo para uma jornada de sucesso.</p>
+                <span class="text-violet-600 font-bold tracking-wider text-xs uppercase mb-2 block" data-key="step_reflect_badge">Fase 1 • Direção</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-3" data-key="step_reflect_title">Definindo o Foco</h2>
+                <p class="text-slate-500 text-lg font-light" data-key="step_reflect_sub">Antes de traçar a meta, qual é o seu objetivo principal neste ciclo?</p>
             </div>
 
-            <!-- Meta Card -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 mb-6">
-                <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide" data-key="label_goal">Meta de Desenvolvimento</label>
-                <div class="text-sm text-slate-500 mb-4 leading-relaxed border-l-4 border-indigo-200 pl-3 bg-slate-50 p-2 rounded-r-lg" data-key="helper_goal">
-                    O que você quer conquistar? Pode ser melhorar sua performance atual, preparar-se para um futuro cargo ou potencializar um talento natural que você já tem.
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Option Current -->
+                <div id="card-current" onclick="selectReflection('current')" class="glass-panel cursor-pointer p-8 rounded-3xl hover:border-violet-300 transition-all shadow-sm hover:shadow-lg group h-full flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-violet-100/50 rounded-bl-full -mr-4 -mt-4 transition-all group-hover:bg-violet-100"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-violet-600 shadow-sm mb-4 border border-violet-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-800 mb-2 group-hover:text-violet-700 transition-colors" data-key="opt_current_title">Fortalecer Posição Atual</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed" data-key="opt_current_desc">Foco na excelência, aprofundamento técnico e desenvolvimento de soft skills para a função.</p>
+                    </div>
+                    <!-- Check icon -->
+                    <div id="check-current" class="hidden absolute bottom-6 right-6 bg-violet-600 text-white rounded-full p-1.5 shadow-lg animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
                 </div>
-                <textarea id="input-goal" class="input-focus w-full p-4 text-lg bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-700 min-h-[120px] resize-none transition-all placeholder:text-slate-400" placeholder="Ex: Quero assumir uma posição de coordenação em 1 ano..."></textarea>
-            </div>
 
-            <!-- Competencia Card -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
-                <div class="flex justify-between items-center mb-3">
-                    <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide" data-key="label_comp">Competência Principal</label>
-                    <button onclick="openModal('competencies')" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1">
-                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <span data-key="btn_comp_ideas">Ver sugestões</span>
-                    </button>
+                <!-- Option Future -->
+                <div id="card-future" onclick="selectReflection('future')" class="glass-panel cursor-pointer p-8 rounded-3xl hover:border-fuchsia-300 transition-all shadow-sm hover:shadow-lg group h-full flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-fuchsia-100/50 rounded-bl-full -mr-4 -mt-4 transition-all group-hover:bg-fuchsia-100"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-fuchsia-600 shadow-sm mb-4 border border-fuchsia-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17 5-5-5-5"/><path d="m6 17 5-5-5-5"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-800 mb-2 group-hover:text-fuchsia-700 transition-colors" data-key="opt_future_title">Próximo Passo</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed" data-key="opt_future_desc">Preparação para novos desafios, expansão de escopo e competências comportamentais de liderança.</p>
+                    </div>
+                    <!-- Check icon -->
+                    <div id="check-future" class="hidden absolute bottom-6 right-6 bg-fuchsia-600 text-white rounded-full p-1.5 shadow-lg animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
                 </div>
-                <p class="text-sm text-slate-500 mb-4" data-key="helper_comp">Qual habilidade será a chave para atingir essa meta? Se tiver dúvida, consulte nossa lista de referência.</p>
-                <input id="input-comp" type="text" class="input-focus w-full p-4 text-lg bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-700 transition-all placeholder:text-slate-400" placeholder="Ex: Liderança Situacional...">
             </div>
         </div>
 
-        <!-- STEP 2: METHODOLOGY (70/20/10) -->
-        <div id="step-2" class="step-content hidden fade-in max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-                <div>
-                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step2_badge">Metodologia</span>
-                    <h2 class="text-3xl font-bold text-slate-800 mt-4 mb-2" data-key="step2_title">Como vamos chegar lá?</h2>
-                    
-                    <div class="flex gap-3 mt-4 text-slate-500 max-w-2xl bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-                        <!-- Icon Info -->
-                        <svg class="w-5 h-5 flex-shrink-0 mt-1 text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <!-- STEP 2: REFLECTION DEEP DIVE -->
+        <div id="step-2" class="step-content hidden fade-in max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <span class="text-violet-600 font-bold tracking-wider text-xs uppercase mb-2 block" data-key="step_deep_badge">Fase 2 • Profundidade</span>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2" data-key="step_deep_title">Reflexão Guiada</h2>
+                <p class="text-slate-500" data-key="step_deep_sub">Responda às perguntas abaixo para fundamentar sua meta.</p>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-200/50 border border-white overflow-hidden">
+                <div class="bg-gradient-to-r from-violet-50 to-white p-8 border-b border-violet-100">
+                    <div class="flex gap-4 items-start">
+                        <div class="p-2 bg-white rounded-lg shadow-sm text-violet-600 mt-1">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                        </div>
                         <div>
-                            <strong class="block text-slate-700 text-sm mb-1" data-key="step2_intro_title">A Regra 70/20/10</strong>
-                            <p class="text-sm leading-relaxed" data-key="step2_intro_desc">A ciência mostra que aprendemos mais praticando do que estudando. Para seu plano ser robusto, ele precisa cobrir três frentes:</p>
+                            <h4 class="font-bold text-slate-800 text-lg mb-3" data-key="questions_title">Perguntas para provocar seu pensamento:</h4>
+                            <ul id="question-list" class="space-y-3 text-sm text-slate-600 leading-relaxed marker:text-violet-400 list-disc pl-5">
+                                <!-- Javascript will populate this -->
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <button onclick="openModal('ideas')" class="bg-white border border-slate-200 text-slate-700 px-5 py-3 rounded-xl font-bold hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-sm flex items-center gap-2 whitespace-nowrap">
-                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.4 1.5-3.8 0-3.2-2.7-5.5-6-5.5S6 4.5 6 7.7c0 1.4.5 2.8 1.5 3.8.8.8 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
-                    <span data-key="btn_ideas">Banco de Ideias Completo</span>
+                
+                <div class="p-8">
+                    <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                        <span data-key="label_notes">Suas Reflexões e Insights</span>
+                    </label>
+                    <textarea id="input-reflection-notes" class="input-focus w-full p-5 bg-slate-50 border-0 ring-1 ring-slate-200 rounded-2xl outline-none text-slate-700 min-h-[180px] resize-none text-base transition-all placeholder:text-slate-400" data-placeholder="place_notes"></textarea>
+                    <p class="text-xs text-slate-400 mt-3 text-right flex justify-end items-center gap-1">
+                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        <span data-key="msg_required">Obrigatório para avançar</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: META -->
+        <div id="step-3" class="step-content hidden fade-in max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-violet-600 font-bold tracking-wider text-xs uppercase mb-2 block" data-key="step1_badge">Fase 3 • Objetivos</span>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2" data-key="step1_title">Qual é o seu foco?</h2>
+                <p class="text-slate-500" data-key="step1_sub">Agora vamos transformar sua reflexão em uma meta clara.</p>
+            </div>
+
+            <!-- Meta Card -->
+            <div class="glass-panel rounded-3xl p-8 mb-6 shadow-sm">
+                <label class="block text-sm font-bold text-slate-700 mb-3 uppercase tracking-wide flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-violet-500"></span>
+                    <span data-key="label_goal">Meta de Desenvolvimento</span>
+                </label>
+                
+                <div class="bg-blue-50/50 border border-blue-100 p-4 rounded-xl mb-4 flex gap-3 items-start">
+                    <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-key="helper_goal_connected">Com base nos insights que você escreveu, qual é a <strong>meta principal</strong>? Seja específico.</p>
+                </div>
+                
+                <textarea id="input-goal" class="input-focus w-full p-4 text-lg bg-white border border-slate-200 rounded-2xl outline-none text-slate-700 min-h-[120px] resize-none transition-all shadow-sm" data-placeholder="place_goal"></textarea>
+            </div>
+
+            <!-- Competencia Card -->
+            <div class="glass-panel rounded-3xl p-8 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-fuchsia-500"></span>
+                        <span data-key="label_comp">Competência Principal</span>
+                    </label>
+                    <button onclick="openModal('competencies')" class="text-xs font-bold text-violet-600 bg-violet-50 px-3 py-1.5 rounded-full hover:bg-violet-100 transition-colors flex items-center gap-1 border border-violet-100">
+                        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                        <span data-key="btn_comp_ideas">Ver lista de sugestões</span>
+                    </button>
+                </div>
+                <input id="input-comp" type="text" class="input-focus w-full p-4 text-lg bg-white border border-slate-200 rounded-2xl outline-none text-slate-700 transition-all shadow-sm" data-placeholder="place_comp">
+            </div>
+        </div>
+
+        <!-- STEP 4: METHODOLOGY (70/20/10) -->
+        <div id="step-4" class="step-content hidden fade-in max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-6">
+                <div>
+                    <span class="text-violet-600 font-bold tracking-wider text-xs uppercase mb-2 block" data-key="step2_badge">Fase 4 • Metodologia</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-2" data-key="step2_title">Como vamos chegar lá?</h2>
+                    
+                    <div class="flex gap-4 mt-4 text-slate-600 max-w-2xl bg-white/70 backdrop-blur-md p-5 rounded-2xl border border-white shadow-sm">
+                        <div class="bg-violet-100 p-2 rounded-lg h-fit text-violet-600">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        </div>
+                        <div>
+                            <strong class="block text-slate-800 text-sm mb-1 font-bold" data-key="step2_intro_title">A Regra 70/20/10</strong>
+                            <p class="text-sm leading-relaxed text-slate-500" data-key="step2_intro_desc">A ciência mostra que aprendemos mais praticando do que estudando. Para seu plano ser robusto, ele precisa cobrir três frentes:</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="openModal('ideas')" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-3 rounded-xl font-bold hover:border-violet-300 hover:text-violet-600 transition-all shadow-sm flex items-center gap-2 whitespace-nowrap">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M8.5 15.5v.01"/><path d="M15.5 8.5v.01"/></svg>
+                    <span data-key="btn_ideas">Banco de Ideias</span>
                 </button>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <!-- 70% -->
-                <div class="bg-white rounded-3xl p-1 border-t-4 border-emerald-500 shadow-sm hover:shadow-lg transition-all">
+                <div class="bg-white/80 backdrop-blur rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-white group">
+                    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-1"></div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-2xl font-bold text-emerald-600">70%</span>
-                            <span class="text-xs font-bold uppercase text-emerald-800 bg-emerald-100 px-2 py-1 rounded" data-key="label_70">Experiência</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl font-extrabold text-emerald-500 tracking-tighter opacity-80">70%</span>
+                            <span class="text-[10px] font-bold uppercase text-emerald-700 bg-emerald-100 px-2 py-1 rounded-full" data-key="label_70">Experiência</span>
                         </div>
-                        <p class="text-sm text-slate-500 mb-6 min-h-[40px]" data-key="expl_70">Aprender fazendo, resolvendo problemas reais.</p>
-                        <div class="bg-slate-50 rounded-2xl p-2 border border-slate-100">
-                            <textarea id="input-70" class="input-focus w-full bg-transparent border-0 p-3 text-slate-700 outline-none resize-none h-48 text-sm placeholder:text-slate-400" placeholder="Qual desafio prático você vai assumir?"></textarea>
-                        </div>
+                        <p class="text-sm text-slate-500 mb-6 font-medium" data-key="expl_70">Aprender fazendo, resolvendo problemas reais no dia a dia.</p>
+                        <textarea id="input-70" class="input-focus w-full bg-slate-50 border border-slate-100 rounded-xl p-4 text-slate-700 outline-none resize-none h-40 text-sm transition-all focus:bg-white" data-placeholder="place_70"></textarea>
                     </div>
                 </div>
                 <!-- 20% -->
-                <div class="bg-white rounded-3xl p-1 border-t-4 border-amber-500 shadow-sm hover:shadow-lg transition-all">
+                <div class="bg-white/80 backdrop-blur rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-white group">
+                    <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-1"></div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-2xl font-bold text-amber-500">20%</span>
-                            <span class="text-xs font-bold uppercase text-amber-800 bg-amber-100 px-2 py-1 rounded" data-key="label_20">Relacionamentos</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl font-extrabold text-amber-500 tracking-tighter opacity-80">20%</span>
+                            <span class="text-[10px] font-bold uppercase text-amber-700 bg-amber-100 px-2 py-1 rounded-full" data-key="label_20">Trocas</span>
                         </div>
-                        <p class="text-sm text-slate-500 mb-6 min-h-[40px]" data-key="expl_20">Aprender com os outros, trocando experiências.</p>
-                        <div class="bg-slate-50 rounded-2xl p-2 border border-slate-100">
-                            <textarea id="input-20" class="input-focus w-full bg-transparent border-0 p-3 text-slate-700 outline-none resize-none h-48 text-sm placeholder:text-slate-400" placeholder="Quem será seu mentor ou fonte de feedback?"></textarea>
-                        </div>
+                        <p class="text-sm text-slate-500 mb-6 font-medium" data-key="expl_20">Aprender com os outros através de feedbacks e observação.</p>
+                        <textarea id="input-20" class="input-focus w-full bg-slate-50 border border-slate-100 rounded-xl p-4 text-slate-700 outline-none resize-none h-40 text-sm transition-all focus:bg-white" data-placeholder="place_20"></textarea>
                     </div>
                 </div>
                 <!-- 10% -->
-                <div class="bg-white rounded-3xl p-1 border-t-4 border-blue-500 shadow-sm hover:shadow-lg transition-all">
+                <div class="bg-white/80 backdrop-blur rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-white group">
+                    <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-1"></div>
                     <div class="p-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-2xl font-bold text-blue-500">10%</span>
-                            <span class="text-xs font-bold uppercase text-blue-800 bg-blue-100 px-2 py-1 rounded" data-key="label_10">Educação</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-4xl font-extrabold text-blue-500 tracking-tighter opacity-80">10%</span>
+                            <span class="text-[10px] font-bold uppercase text-blue-700 bg-blue-100 px-2 py-1 rounded-full" data-key="label_10">Educação</span>
                         </div>
-                        <p class="text-sm text-slate-500 mb-6 min-h-[40px]" data-key="expl_10">Cursos, livros e teoria.</p>
-                        <div class="bg-slate-50 rounded-2xl p-2 border border-slate-100">
-                            <textarea id="input-10" class="input-focus w-full bg-transparent border-0 p-3 text-slate-700 outline-none resize-none h-48 text-sm placeholder:text-slate-400" placeholder="O que você precisa estudar?"></textarea>
-                        </div>
+                        <p class="text-sm text-slate-500 mb-6 font-medium" data-key="expl_10">Cursos, livros, teoria e certificações formais.</p>
+                        <textarea id="input-10" class="input-focus w-full bg-slate-50 border border-slate-100 rounded-xl p-4 text-slate-700 outline-none resize-none h-40 text-sm transition-all focus:bg-white" data-placeholder="place_10"></textarea>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 3: METRICS -->
-        <div id="step-3" class="step-content hidden fade-in max-w-4xl mx-auto">
+        <!-- STEP 5: METRICS -->
+        <div id="step-5" class="step-content hidden fade-in max-w-4xl mx-auto">
             <div class="text-center mb-10">
-                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step3_badge">Compromisso</span>
-                <h2 class="text-3xl font-bold text-slate-800 mt-4 mb-2" data-key="step3_title">Indicadores e Prazos</h2>
+                <span class="text-violet-600 font-bold tracking-wider text-xs uppercase mb-2 block" data-key="step3_badge">Fase 5 • Compromisso</span>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2" data-key="step3_title">Indicadores e Prazos</h2>
                 <p class="text-slate-500" data-key="step3_desc">Um objetivo sem prazo é apenas um sonho. Como vamos medir o sucesso de cada ação?</p>
             </div>
 
@@ -185,50 +336,56 @@
             </div>
         </div>
 
-        <!-- STEP 4: REVIEW -->
-        <div id="step-4" class="step-content hidden fade-in max-w-4xl mx-auto">
+        <!-- STEP 6: REVIEW -->
+        <div id="step-6" class="step-content hidden fade-in max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-8">
                 <div>
-                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border bg-indigo-50 text-indigo-700 border-indigo-100" data-key="step4_badge">Revisão</span>
+                    <span class="text-violet-600 font-bold tracking-wider text-xs uppercase mb-2 block" data-key="step4_badge">Fase 6 • Revisão</span>
                     <h2 class="text-3xl font-bold text-slate-800 mt-2" data-key="step4_title">Seu Plano Consolidado</h2>
                 </div>
-                <button onclick="exportToWord()" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all flex items-center gap-2">
+                <button onclick="checkDownloadAndFinish()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold shadow-xl shadow-slate-300 hover:bg-slate-800 transition-all flex items-center gap-2 hover:-translate-y-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                     <span data-key="btn_export">Baixar Documento (.doc)</span>
                 </button>
             </div>
 
-            <div class="bg-white border border-slate-200 rounded-[2rem] p-10 shadow-xl space-y-10 relative overflow-hidden">
+            <div class="bg-white/90 backdrop-blur rounded-[2rem] p-10 shadow-2xl shadow-slate-200 border border-white space-y-10 relative overflow-hidden">
+                <!-- Decoratrive background blob inside paper -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-violet-100/50 to-transparent rounded-bl-full pointer-events-none"></div>
+
                 <div class="relative z-10" id="review-content">
                     <!-- Dynamic Content -->
                 </div>
                 
                 <!-- Dica de Ouro -->
-                <div class="mt-8 pt-6 border-t border-slate-100 flex items-start gap-3 bg-indigo-50/50 p-4 rounded-xl relative z-10">
-                    <svg class="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H3"/></svg>
+                <div class="mt-8 pt-6 border-t border-slate-100 flex items-start gap-4 bg-gradient-to-r from-violet-50 to-transparent p-6 rounded-2xl relative z-10">
+                    <div class="p-2 bg-white rounded-lg shadow-sm text-violet-600">
+                         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H3"/></svg>
+                    </div>
                     <div>
-                        <h4 class="font-bold text-indigo-900 text-sm mb-1" data-key="tip_title">Insight de Carreira</h4>
-                        <p class="text-sm text-indigo-800 leading-relaxed" id="tip-text">...</p>
+                        <h4 class="font-bold text-violet-900 text-sm mb-1 uppercase tracking-wide" data-key="tip_title">Insight de Carreira</h4>
+                        <p class="text-sm text-slate-700 leading-relaxed font-medium" id="tip-text">...</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 5: FINAL -->
-        <div id="step-5" class="step-content hidden fade-in flex flex-col items-center justify-center min-h-[50vh] max-w-xl mx-auto text-center">
-            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-8 shadow-sm">
-                <svg class="w-10 h-10 text-green-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        <!-- STEP 7: FINAL -->
+        <div id="step-7" class="step-content hidden fade-in flex flex-col items-center justify-center min-h-[50vh] max-w-xl mx-auto text-center">
+            <div class="w-28 h-28 bg-gradient-to-tr from-emerald-100 to-teal-50 rounded-full flex items-center justify-center mb-8 shadow-inner relative">
+                <svg class="w-12 h-12 text-teal-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                <div class="absolute inset-0 rounded-full animate-ping opacity-20 bg-emerald-400"></div>
             </div>
             
             <h2 class="text-4xl font-bold text-slate-800 mb-4" data-key="final_title">Parabéns pela iniciativa!</h2>
-            <p class="text-xl text-slate-500 mb-10" data-key="final_desc">Você deu o primeiro passo. Agora é hora de tirar do papel.</p>
+            <p class="text-lg text-slate-500 mb-10 leading-relaxed" data-key="final_desc">O primeiro passo foi dado. Agora é hora de tirar do papel.</p>
             
-            <div class="w-full bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8 text-left relative overflow-hidden group hover:border-indigo-200 transition-colors">
-                <div class="absolute left-0 top-0 w-1 h-full bg-indigo-500"></div>
+            <div class="w-full bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 mb-8 text-left relative overflow-hidden group border border-slate-100 hover:border-violet-200 transition-all">
+                <div class="absolute left-0 top-0 w-1.5 h-full bg-violet-500"></div>
                 <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2" data-key="final_path_label">Próximo passo: Registre no</p>
                 <div class="flex flex-col gap-1">
-                    <div class="flex items-center gap-2 font-bold text-indigo-900 text-xl">
-                        <svg class="w-6 h-6 text-indigo-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    <div class="flex items-center gap-2 font-bold text-violet-900 text-xl">
+                        <svg class="w-6 h-6 text-violet-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                         <span data-key="final_path">Success Factors</span>
                     </div>
                     <div class="flex items-center gap-2 text-slate-500 text-sm ml-8">
@@ -238,13 +395,18 @@
                 </div>
             </div>
 
-            <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 text-amber-800 text-sm mb-10 flex gap-3 items-start text-left w-full">
-                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-                <span data-key="final_alert">Agende o alinhamento com seu líder para validar este plano. Se precisar de apoio, seu HRBP está à disposição.</span>
+            <div class="bg-amber-50/80 border border-amber-100 rounded-2xl p-6 mb-10 flex gap-4 items-start text-left w-full">
+                <div class="bg-amber-100 p-2 rounded-lg text-amber-600 flex-shrink-0">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm uppercase tracking-wide mb-1" data-key="final_alert_title">Lembre-se</h4>
+                    <p class="text-slate-600 leading-relaxed text-sm" data-key="final_alert_text">Agende o alinhamento com seu líder para validar este plano. Se precisar de apoio, seu HRBP está à disposição.</p>
+                </div>
             </div>
 
-            <button onclick="resetApp()" class="text-slate-500 hover:text-indigo-600 font-bold px-6 py-3 transition-colors flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+            <button onclick="resetApp()" class="text-slate-400 hover:text-violet-600 font-bold px-6 py-3 transition-colors flex items-center gap-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
                 <span data-key="btn_restart">Criar Novo Plano</span>
             </button>
         </div>
@@ -252,28 +414,47 @@
     </main>
 
     <!-- FOOTER NAV -->
-    <div id="footer-nav" class="hidden sticky bottom-0 left-0 w-full bg-white/95 backdrop-blur-sm border-t border-slate-200 p-4 z-40">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <button onclick="prevStep()" class="text-slate-500 font-bold px-4 py-2 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    <div id="footer-nav" class="hidden fixed bottom-6 left-0 w-full z-40 pointer-events-none">
+        <div class="max-w-5xl mx-auto px-6 flex justify-between items-center pointer-events-auto">
+            <button onclick="prevStep()" class="glass-panel text-slate-600 font-bold px-6 py-3 rounded-full hover:bg-white hover:text-violet-700 transition-all shadow-lg flex items-center gap-2 text-sm backdrop-blur-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
                 <span data-key="nav_prev">Voltar</span>
             </button>
             
-            <button id="btn-next" onclick="nextStep()" class="bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200 flex items-center gap-2">
+            <button id="btn-next" onclick="nextStep()" class="bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl shadow-slate-400/30 flex items-center gap-2 hover:-translate-y-1 transform">
                 <span data-key="nav_next">Continuar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
         </div>
     </div>
 
-    <!-- MODAL -->
-    <div id="modal" class="hidden fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-4xl max-h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fade-in">
+    <!-- MAIN MODAL (Ideas & Competencies) -->
+    <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="bg-white w-full max-w-4xl max-h-[85vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden animate-fade-in relative z-10">
             <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                 <h3 id="modal-title" class="font-bold text-xl text-slate-800"></h3>
-                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white border border-slate-200 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">✕</button>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white border border-slate-200 hover:bg-red-50 hover:text-red-500 hover:border-red-200 flex items-center justify-center text-slate-400 transition-all">✕</button>
             </div>
             <div id="modal-content" class="p-8 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- DOWNLOAD WARNING MODAL -->
+    <div id="download-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-fade-in relative z-10">
+            <div class="p-8 text-center">
+                <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-500 ring-4 ring-amber-50">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                </div>
+                <h3 class="font-bold text-xl text-slate-800 mb-2" data-key="dl_modal_title">Você já baixou seu plano?</h3>
+                <p class="text-slate-500 text-sm leading-relaxed" data-key="dl_modal_desc">Se você avançar sem baixar, perderá o arquivo Word gerado. Recomendamos baixar agora.</p>
+            </div>
+            <div class="flex border-t border-slate-100">
+                <button onclick="skipDownload()" class="flex-1 py-4 text-slate-500 font-bold hover:bg-slate-50 transition-colors text-sm" data-key="dl_modal_skip">Seguir sem baixar</button>
+                <button onclick="confirmDownload()" class="flex-1 py-4 bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors text-sm" data-key="dl_modal_btn">Baixar Agora</button>
+            </div>
         </div>
     </div>
 
@@ -281,124 +462,397 @@
     <script>
         // --- DADOS ---
         const DATA = {
-            competencies: [
-                "Liderança Ágil", "Inteligência Emocional", "Comunicação Assertiva", 
-                "Pensamento Estratégico", "Gestão de Conflitos", "Análise de Dados",
-                "Gestão de Projetos", "Inovação e Criatividade", "Visão de Negócio",
-                "Trabalho em Equipe", "Resiliência / Adaptabilidade", "Gestão do Tempo",
-                "Negociação", "Orientação para Resultados", "Autogestão"
-            ],
+            competencies: {
+                pt: [
+                    "Liderança Ágil", "Inteligência Emocional", "Comunicação Assertiva", 
+                    "Pensamento Estratégico", "Gestão de Conflitos", "Análise de Dados",
+                    "Gestão de Projetos", "Inovação e Criatividade", "Visão de Negócio",
+                    "Trabalho em Equipe", "Resiliência / Adaptabilidade", "Gestão do Tempo",
+                    "Negociação", "Orientação para Resultados", "Autogestão"
+                ],
+                es: [
+                    "Liderazgo Ágil", "Inteligencia Emocional", "Comunicación Asertiva", 
+                    "Pensamiento Estratégico", "Gestión de Conflictos", "Análisis de Datos",
+                    "Gestión de Proyectos", "Innovación y Creatividad", "Visión de Negocio",
+                    "Trabajo en Equipo", "Resiliencia / Adaptabilidad", "Gestión del Tiempo",
+                    "Negociación", "Orientación a Resultados", "Autogestión"
+                ]
+            },
+            reflectionQuestions: {
+                pt: {
+                    current: [
+                        "Qual é o principal desafio da sua função hoje que, se superado, mudaria o patamar da sua entrega?",
+                        "Que legado ou impacto positivo você quer deixar na sua área neste ciclo?",
+                        "Quais habilidades técnicas ou comportamentais você precisa afiar para dominar sua cadeira?",
+                        "O que os seus feedbacks recentes dizem? Existe algum ponto de melhoria recorrente?",
+                        "Propósito: Por que evoluir no seu papel atual é importante para você pessoalmente?"
+                    ],
+                    future: [
+                        "Qual cadeira, projeto ou responsabilidade você almeja assumir no curto/médio prazo?",
+                        "Que tipo de valor você espera gerar para a empresa nessa nova posição?",
+                        "O que ainda falta na sua bagagem (experiência ou conhecimento) para você estar pronto?",
+                        "Ao comparar seu perfil atual com o perfil desejado, onde está a maior lacuna (gap)?",
+                        "Propósito: O que esse próximo passo representa para a sua realização pessoal?"
+                    ]
+                },
+                es: {
+                    current: [
+                        "¿Cuál es el principal desafío de su función hoy que, si se supera, cambiaría el nivel de su entrega?",
+                        "¿Qué legado o impacto positivo quiere dejar en su área en este ciclo?",
+                        "¿Qué habilidades técnicas o comportamentales necesita afinar para dominar su puesto?",
+                        "¿Qué dicen sus feedbacks recientes? ¿Hay algún punto de mejora recurrente?",
+                        "Propósito: ¿Por qué evolucionar en su papel actual es importante para usted personalmente?"
+                    ],
+                    future: [
+                        "¿Qué puesto, proyecto o responsabilidad aspira a asumir en el corto/mediano plazo?",
+                        "¿Qué tipo de valor espera generar para la empresa en esa nueva posición?",
+                        "¿Qué le falta aún en su bagaje (experiencia o conocimiento) para estar listo?",
+                        "Al comparar su perfil actual con el perfil deseado, ¿dónde está la mayor brecha (gap)?",
+                        "Propósito: ¿Qué representa este próximo paso para su realización personal?"
+                    ]
+                }
+            },
             ideas: {
-                // Conteúdo completo do PDF
                 pt: {
                     s70: ["Realizar Shadowing", "Job Rotation", "Projetos transversais", "Atuar em crises", "Lançar novo programa", "Resolver problema crônico", "Melhoria de processos", "Ministrar treinamento", "Facilitar reuniões", "Liderar grupo de projeto", "Visitas a clientes", "Processos orçamentários"],
                     s20: ["Feedbacks (Gestor/Pares)", "Mentoria (Mentor/Mentorado)", "Role Model", "Benchmarking", "Grupos de discussão", "Fóruns técnicos", "Feedback pós-projeto"],
                     s10: ["Treinamentos Formais", "Vídeos/Webinars", "Leitura técnica", "Certificações", "Congressos", "Treinamentos comportamentais"]
+                },
+                es: {
+                    s70: ["Realizar Shadowing", "Job Rotation", "Proyectos transversales", "Actuar en crisis", "Lanzar nuevo programa", "Resolver problema crónico", "Mejora de procesos", "Impartir formación", "Facilitar reuniones", "Liderar grupo de proyecto", "Visitas a clientes", "Procesos presupuestarios"],
+                    s20: ["Feedbacks (Gestor/Pares)", "Mentoría (Mentor/Mentorado)", "Role Model", "Benchmarking", "Grupos de discusión", "Foros técnicos", "Feedback post-proyecto"],
+                    s10: ["Entrenamientos Formales", "Videos/Webinars", "Lectura técnica", "Certificaciones", "Congresos", "Entrenamientos comportamentales"]
                 }
             },
-            tips: [
-                "Conecte sua meta ao negócio: Pergunte-se 'Como desenvolver essa competência ajuda minha área a bater as metas do ano?'. Isso aumenta o apoio da liderança.",
-                "Feedback não é apenas sobre o passado. Peça 'Feedforward': pergunte 'O que posso fazer diferente no próximo projeto para ter mais impacto?'.",
-                "Não subestime o 20% (Relacionamentos). Mapeie quem são os tomadores de decisão que precisam conhecer seu trabalho e crie uma rotina de troca com eles.",
-                "Transforme teoria em processo. Ao terminar um curso (10%), crie um checklist ou ferramenta prática para o time. Isso consolida seu aprendizado e gera legado.",
-                "Evidência de sucesso deve ser observável. Em vez de 'melhorar comunicação', prefira 'apresentar os resultados mensais para a liderança com zero dúvidas sobre os dados'."
-            ]
+            tips: {
+                pt: [
+                    "Conecte sua meta ao negócio: Pergunte-se 'Como desenvolver essa competência ajuda minha área a bater as metas do ano?'. Isso aumenta o apoio da liderança.",
+                    "Feedback não é apenas sobre o passado. Peça 'Feedforward': pergunte 'O que posso fazer diferente no próximo projeto para ter mais impacto?'.",
+                    "Não subestime o 20% (Relacionamentos). Mapeie quem são os tomadores de decisão que precisam conhecer seu trabalho e crie uma rotina de troca com eles.",
+                    "Transforme teoria em processo. Ao terminar um curso (10%), crie um checklist ou ferramenta prática para o time. Isso consolida seu aprendizado e gera legado.",
+                    "Evidência de sucesso deve ser observável. Em vez de 'melhorar comunicação', prefira 'apresentar os resultados mensais para a liderança com zero dúvidas sobre os dados'."
+                ],
+                es: [
+                    "Conecta tu meta al negocio: Pregúntate '¿Cómo desarrollar esta competencia ayuda a mi área a alcanzar las metas del año?'. Esto aumenta el apoyo del liderazgo.",
+                    "El feedback no es solo sobre el pasado. Pide 'Feedforward': pregunta '¿Qué puedo hacer diferente en el próximo proyecto para tener más impacto?'.",
+                    "No subestimes el 20% (Relaciones). Mapea quiénes son los tomadores de decisiones que necesitan conocer tu trabajo y crea una rutina de intercambio con ellos.",
+                    "Transforma teoría en proceso. Al terminar un curso (10%), crea un checklist o herramienta práctica para el equipo. Esto consolida tu aprendizaje y genera legado.",
+                    "La evidencia de éxito debe ser observable. En lugar de 'mejorar comunicación', prefiere 'presentar los resultados mensuales al liderazgo con cero dudas sobre los datos'."
+                ]
+            }
         };
 
         const TRANSLATIONS = {
             pt: {
-                app_title: "Plano de Desenvolvimento Individual",
+                header_title: "Jornada de Carreira",
+                header_subtitle: "Seu Plano de Desenvolvimento Individual",
                 btn_start: "Iniciar Jornada",
+                welcome_badge: "Sua Carreira",
                 welcome_title: "Vamos desenhar seu futuro?",
-                welcome_desc: "Este é um espaço seguro para você refletir sobre onde está e onde quer chegar. O PDI não é uma formalidade, é a estratégia da sua evolução.",
+                welcome_desc: "Este é um espaço seguro para você refletir. O PDI não é uma burocracia, é a estratégia da sua própria evolução.",
+                welcome_note: "Você é o protagonista. Use este rascunho para organizar suas ideias com clareza antes de alinhar com sua liderança.",
+                // NEW TEXT
+                welcome_time_warn: "Que tal reservar 20 minutos para focar no que realmente importa: você? Ao final, geramos um arquivo prontinho para facilitar o registro no Success Factors.",
+                
+                step_reflect_title: "Definindo o Foco",
+                step_reflect_sub: "Antes de traçar a meta, qual é o seu objetivo principal neste ciclo?",
+                step_reflect_badge: "Fase 1 • Direção",
+                
+                step_deep_title: "Reflexão Guiada",
+                step_deep_sub: "Responda às perguntas abaixo para fundamentar sua meta.",
+                step_deep_badge: "Fase 2 • Profundidade",
+                
                 step1_title: "Qual é o seu foco?",
+                step1_badge: "Fase 3 • Objetivos",
+                step1_sub: "Agora vamos transformar sua reflexão em uma meta clara.",
+                
                 step2_title: "Como vamos chegar lá?",
+                step2_badge: "Fase 4 • Metodologia",
+                
                 step3_title: "Indicadores e Prazos",
+                step3_badge: "Fase 5 • Compromisso",
+                
                 step4_title: "Seu Plano Consolidado",
+                step4_badge: "Fase 6 • Revisão",
+                
                 final_title: "Parabéns pela iniciativa!",
                 final_path: "Success Factors",
                 btn_export: "Baixar Documento (.doc)",
                 label_evidence: "Evidência de Sucesso",
                 label_date: "Data Limite",
                 nav_next: "Continuar",
-                nav_finish: "Concluir"
+                nav_prev: "Voltar",
+                nav_finish: "Concluir",
+                helper_goal_connected: "Com base nos insights que você escreveu, qual é a <strong>meta principal</strong>? Seja específico.",
+                
+                opt_current_title: "Fortalecer Posição Atual",
+                opt_current_desc: "Foco em excelência na função, aprofundamento técnico e desenvolvimento de competências comportamentais.",
+                opt_future_title: "Próximo Passo",
+                opt_future_desc: "Preparação para novos desafios, expansão de escopo e desenvolvimento de habilidades técnicas e comportamentais.",
+                
+                questions_title: "Perguntas para provocar seu pensamento:",
+                label_notes: "Suas Reflexões e Insights",
+                step2_intro_title: "A Regra 70/20/10",
+                step2_intro_desc: "A ciência mostra que aprendemos mais praticando do que estudando. Para seu plano ser robusto, ele precisa cobrir três frentes:",
+                btn_ideas: "Banco de Ideias",
+                label_70: "Experiência",
+                expl_70: "Aprender fazendo, resolvendo problemas reais.",
+                label_20: "Relacionamentos",
+                expl_20: "Aprender com os outros, trocando experiências.",
+                label_10: "Educação",
+                expl_10: "Cursos, livros e teoria.",
+                final_desc: "O primeiro passo foi dado. Agora é hora de tirar do papel.",
+                final_alert_title: "Lembre-se",
+                final_alert_text: "Agende o alinhamento com seu líder para validar este plano. Se precisar de apoio, seu HRBP está à disposição.",
+                
+                label_goal: "Meta de Desenvolvimento",
+                helper_goal: "O que você quer conquistar? Pode ser melhorar sua performance atual, preparar-se para um futuro cargo ou potencializar um talento natural que você já tem.",
+                label_comp: "Competência Principal",
+                helper_comp: "Qual habilidade será a chave para atingir essa meta?",
+                btn_comp_ideas: "Ver sugestões",
+                
+                step3_desc: "Um objetivo sem prazo é apenas um sonho. Como vamos medir o sucesso de cada ação?",
+                modal_title_competencies: "Competências Sugeridas",
+                modal_title_ideas: "Banco de Ideias (PDI Eficaz)",
+                
+                place_notes: "Escreva aqui suas conclusões baseadas nas perguntas acima...",
+                place_goal: "Ex: Desenvolver a competência X para assumir a responsabilidade Y...",
+                place_comp: "Ex: Liderança Situacional...",
+                place_70: "Qual desafio prático você vai assumir?",
+                place_20: "Quem será seu mentor ou fonte de feedback?",
+                place_10: "O que você precisa estudar?",
+                place_evid: "O que comprova a conclusão?",
+                msg_required: "Obrigatório para avançar",
+                
+                dl_modal_title: "Você já baixou seu plano?",
+                dl_modal_desc: "Se você avançar sem baixar, perderá o arquivo Word gerado. Recomendamos baixar agora.",
+                dl_modal_btn: "Baixar Agora",
+                dl_modal_skip: "Seguir sem baixar",
+                
+                tip_title: "Insight de Carreira",
+                final_path_label: "Próximo passo: Registre no",
+                final_subpath: "Home > Objetivos > Metas",
+
+                lang_label_desc: "Escolha seu idioma:"
             },
             es: {
-                app_title: "Plan de Desarrollo Individual",
-                btn_start: "Iniciar Jornada",
+                header_title: "Jornada de Carrera",
+                header_subtitle: "Su Plan de Desarrollo Individual",
+                btn_start: "Empezar Jornada",
+                welcome_badge: "Su Carrera",
                 welcome_title: "¿Diseñamos tu futuro?",
-                welcome_desc: "Este es un espacio seguro para reflexionar sobre dónde estás y a dónde quieres llegar. El PDI no es una formalidad, es la estrategia de tu evolución.",
+                welcome_desc: "Este es un espacio seguro para reflexionar. El PDI no es una burocracia, es la estrategia de tu propia evolución.",
+                welcome_note: "Eres el protagonista. Usa este borrador para organizar tus ideas con claridad antes de alinear con tu liderazgo.",
+                // TRANSLATED NEW TEXT
+                welcome_time_warn: "¿Qué tal reservar 20 minutos para enfocarte en lo que realmente importa: tú? Al final, generamos un archivo listo para facilitar el registro en Success Factors.",
+                
+                step_reflect_title: "Definiendo el Enfoque",
+                step_reflect_sub: "¿Antes de trazar la meta, cuál es tu objetivo principal en este ciclo?",
+                step_reflect_badge: "Fase 1 • Dirección",
+                
+                step_deep_title: "Reflexión Guiada",
+                step_deep_sub: "Responde las preguntas a continuación para fundamentar tu meta.",
+                step_deep_badge: "Fase 2 • Profundidad",
+                
                 step1_title: "¿Cuál es tu enfoque?",
+                step1_badge: "Fase 3 • Objetivos",
+                step1_sub: "Ahora vamos a transformar tu reflexión en una meta clara.",
+
                 step2_title: "¿Cómo llegaremos allí?",
+                step2_badge: "Fase 4 • Metodología",
+                
                 step3_title: "Indicadores y Plazos",
+                step3_badge: "Fase 5 • Compromiso",
+                
                 step4_title: "Tu Plan Consolidado",
+                step4_badge: "Fase 6 • Revisión",
+                
                 final_title: "¡Felicidades por la iniciativa!",
                 final_path: "Success Factors",
                 btn_export: "Descargar Documento (.doc)",
                 label_evidence: "Evidencia de Éxito",
                 label_date: "Fecha Límite",
                 nav_next: "Continuar",
-                nav_finish: "Concluir"
+                nav_finish: "Concluir",
+                nav_prev: "Volver",
+                helper_goal_connected: "Con base en los insights que escribiste, ¿cuál es la <strong>meta principal</strong>? Sé específico.",
+                
+                opt_current_title: "Fortalecer Posición Actual",
+                opt_current_desc: "Enfoque en la excelencia en la función, profundización técnica y desarrollo de competencias comportamentales.",
+                opt_future_title: "Próximo Paso",
+                opt_future_desc: "Preparación para nuevos desafíos, expansión de alcance y desarrollo de habilidades técnicas y comportamentales.",
+                
+                questions_title: "Preguntas para provocar tu pensamiento:",
+                label_notes: "Tus Reflexiones e Insights",
+                step2_intro_title: "La Regla 70/20/10",
+                step2_intro_desc: "La ciencia muestra que aprendemos más practicando que estudiando. Para que tu plan sea robusto, debe cubrir tres frentes:",
+                btn_ideas: "Banco de Ideas",
+                label_70: "Experiencia",
+                expl_70: "Aprender haciendo, resolviendo problemas reales.",
+                label_20: "Relaciones",
+                expl_20: "Aprender con otros, intercambiando experiencias.",
+                label_10: "Educación",
+                expl_10: "Cursos, libros y teoría.",
+                final_desc: "El primer paso fue dado. Ahora es momento de actuar.",
+                final_alert_title: "Recuerda",
+                final_alert_text: "Agenda la alineación con tu líder para validar este plan. Si necesitas apoyo, tu HRBP está a disposición.",
+                
+                label_goal: "Meta de Desarrollo",
+                helper_goal: "¿Qué quieres lograr? Puede ser mejorar tu desempeño actual, prepararte para un cargo futuro o potenciar un talento natural que ya tienes.",
+                label_comp: "Competencia Principal",
+                helper_comp: "¿Qué habilidad será clave para alcanzar esa meta?",
+                btn_comp_ideas: "Ver sugerencias",
+                
+                step3_desc: "Un objetivo sin plazo es solo un sueño. ¿Cómo mediremos el éxito de cada acción?",
+                modal_title_competencies: "Competencias Sugeridas",
+                modal_title_ideas: "Banco de Ideas (PDI Eficaz)",
+                
+                place_notes: "Escribe aquí tus conclusiones basadas en las preguntas anteriores...",
+                place_goal: "Ej: Desarrollar la competencia X para asumir la responsabilidad Y...",
+                place_comp: "Ej: Liderazgo Situacional...",
+                place_70: "¿Qué desafío práctico asumirás?",
+                place_20: "¿Quién será tu mentor o fuente de feedback?",
+                place_10: "¿Qué necesitas estudiar?",
+                place_evid: "¿Qué prueba la conclusión?",
+                msg_required: "Obligatorio para avanzar",
+                
+                dl_modal_title: "¿Ya descargaste tu plan?",
+                dl_modal_desc: "Si avanzas sin descargar, perderás el archivo Word generado. Recomendamos descargar ahora.",
+                dl_modal_btn: "Descargar Ahora",
+                dl_modal_skip: "Seguir sin descargar",
+                
+                tip_title: "Insight de Carrera",
+                final_path_label: "Próximo paso: Registra en",
+                final_subpath: "Inicio > Objetivos > Metas",
+
+                lang_label_desc: "Cambiar idioma:"
             }
         };
 
         // --- ESTADO ---
         let currentStep = 0;
         let currentLang = 'pt';
+        let reflectionChoice = null; 
+        let hasDownloaded = false;
         
         // --- FUNÇÕES ---
 
         function init() {
             updateLanguage();
             showStep(0);
-            
-            // Random Tip
-            const tip = DATA.tips[Math.floor(Math.random() * DATA.tips.length)];
-            document.getElementById('tip-text').innerText = tip;
+            updateTip();
+        }
+
+        function updateTip() {
+            // Random Tip based on language
+            const tipList = DATA.tips[currentLang];
+            const tip = tipList[Math.floor(Math.random() * tipList.length)];
+            const tipEl = document.getElementById('tip-text');
+            if(tipEl) tipEl.innerText = tip;
         }
 
         function toggleLanguage() {
             currentLang = currentLang === 'pt' ? 'es' : 'pt';
             document.getElementById('lang-label').innerText = currentLang.toUpperCase();
             updateLanguage();
+            updateTip(); // Update tip language
+            
+            // Update dynamic reflection questions if visible
+            if (reflectionChoice && currentStep === 2) {
+                const qList = document.getElementById('question-list');
+                if(qList) {
+                    qList.innerHTML = DATA.reflectionQuestions[currentLang][reflectionChoice].map(q => `<li class="mb-2">${q}</li>`).join('');
+                }
+            }
+            // Update Review if visible
+            if (currentStep === 6) {
+                generateReview();
+            }
         }
 
         function updateLanguage() {
             const t = TRANSLATIONS[currentLang];
-            // Update simple text keys
+            // Text Content
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
-                if(t[key]) el.innerText = t[key];
+                if(t[key]) {
+                    if(key === 'helper_goal_connected') el.innerHTML = t[key];
+                    else el.innerText = t[key];
+                }
             });
-            // Update placeholders if needed (simplified)
+            // Placeholders
+            document.querySelectorAll('[data-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-placeholder');
+                if(t[key]) el.placeholder = t[key];
+            });
         }
 
         function showStep(step) {
-            // Hide all steps
             document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
             
-            // Show current
             const currentEl = document.getElementById(`step-${step}`);
-            currentEl.classList.remove('hidden');
+            if(currentEl) currentEl.classList.remove('hidden');
             
-            // Footer visibility
             const footer = document.getElementById('footer-nav');
-            if(step > 0 && step < 5) footer.classList.remove('hidden');
+            // Steps 1 to 6 show footer (Welcome and Final do not)
+            if(step > 0 && step < 7) footer.classList.remove('hidden');
             else footer.classList.add('hidden');
 
-            // Button Text Logic
             const btnNextText = document.querySelector('[data-key="nav_next"]');
-            if(step === 4) btnNextText.innerText = (currentLang === 'pt' ? 'Concluir' : 'Concluir');
-            else btnNextText.innerText = (currentLang === 'pt' ? 'Continuar' : 'Continuar');
+            if(btnNextText) {
+                if(step === 6) btnNextText.innerText = (currentLang === 'pt' ? 'Concluir' : 'Concluir');
+                else btnNextText.innerText = (currentLang === 'pt' ? 'Continuar' : 'Continuar');
+            }
 
             window.scrollTo(0, 0);
         }
 
+        function checkDownloadAndFinish() {
+            if (!hasDownloaded) {
+                document.getElementById('download-modal').classList.remove('hidden');
+            } else {
+                nextStep();
+            }
+        }
+
+        function skipDownload() {
+            document.getElementById('download-modal').classList.add('hidden');
+            // Mark as if downloaded so we can proceed
+            hasDownloaded = true; 
+            nextStep();
+        }
+
+        function confirmDownload() {
+            exportToWord();
+            document.getElementById('download-modal').classList.add('hidden');
+        }
+
         function nextStep() {
-            if (currentStep === 2) generateMetricsFields(); // Generate inputs for step 3 based on step 2
-            if (currentStep === 3) generateReview(); // Generate review for step 4
+            if (currentStep === 6) {
+                // If button clicked directly in footer
+                if (!hasDownloaded) {
+                    document.getElementById('download-modal').classList.remove('hidden');
+                    return;
+                }
+            }
+
+            if (currentStep === 1) {
+                if (!reflectionChoice) {
+                    alert(currentLang === 'pt' ? "Por favor, selecione um objetivo." : "Por favor, seleccione un objetivo.");
+                    return;
+                }
+            }
+            if (currentStep === 2) {
+                const notes = document.getElementById('input-reflection-notes').value.trim();
+                if (!notes) {
+                    alert(TRANSLATIONS[currentLang].msg_required);
+                    return;
+                }
+            }
+            if (currentStep === 4) generateMetricsFields(); 
+            if (currentStep === 5) generateReview(); 
             
-            if (currentStep < 5) {
+            if (currentStep < 7) {
                 currentStep++;
                 showStep(currentStep);
             }
@@ -412,22 +866,62 @@
         }
 
         function resetApp() {
-            // Clear inputs
             document.querySelectorAll('input, textarea').forEach(el => el.value = '');
             currentStep = 0;
+            reflectionChoice = null;
+            hasDownloaded = false;
+            document.querySelectorAll('[id^="card-"]').forEach(el => el.classList.remove('radio-card-selected'));
+            document.querySelectorAll('[id^="check-"]').forEach(el => el.classList.add('hidden'));
             showStep(0);
+        }
+
+        // --- STEP 1 LOGIC (REFLECTION) ---
+        function selectReflection(choice) {
+            reflectionChoice = choice;
+            
+            // UI Reset
+            document.querySelectorAll('[id^="card-"]').forEach(el => el.classList.remove('radio-card-selected'));
+            document.querySelectorAll('[id^="check-"]').forEach(el => el.classList.add('hidden'));
+            
+            // Active State Safe Check
+            const card = document.getElementById(`card-${choice}`);
+            const check = document.getElementById(`check-${choice}`);
+            
+            if(card) card.classList.add('radio-card-selected');
+            if(check) check.classList.remove('hidden');
+            
+            // Prepare Questions for Step 2
+            const qList = document.getElementById('question-list');
+            if(qList) {
+                qList.innerHTML = DATA.reflectionQuestions[currentLang][choice].map(q => `<li class="mb-2">${q}</li>`).join('');
+            }
+            
+            // Advance
+            setTimeout(() => {
+                nextStep();
+            }, 300);
         }
 
         // --- LÓGICA DINÂMICA ---
 
         function generateMetricsFields() {
             const container = document.getElementById('metrics-container');
+            if(!container) return;
             container.innerHTML = '';
             
+            const getVal = (id) => document.getElementById(id)?.value || '';
+            
+            const t = TRANSLATIONS[currentLang];
+            const titles = {
+                '70': currentLang === 'pt' ? '70% Experiência' : '70% Experiencia',
+                '20': currentLang === 'pt' ? '20% Relacionamentos' : '20% Relaciones',
+                '10': currentLang === 'pt' ? '10% Educação' : '10% Educación'
+            };
+            
             const actions = [
-                { id: '70', text: document.getElementById('input-70').value, color: 'emerald', title: '70% Experiência' },
-                { id: '20', text: document.getElementById('input-20').value, color: 'amber', title: '20% Relacionamentos' },
-                { id: '10', text: document.getElementById('input-10').value, color: 'blue', title: '10% Educação' }
+                { id: '70', text: getVal('input-70'), color: 'emerald', title: titles['70'] },
+                { id: '20', text: getVal('input-20'), color: 'amber', title: titles['20'] },
+                { id: '10', text: getVal('input-10'), color: 'blue', title: titles['10'] }
             ];
 
             let hasContent = false;
@@ -436,18 +930,18 @@
                 if(act.text.trim()) {
                     hasContent = true;
                     const html = `
-                        <div class="bg-white rounded-3xl shadow-sm border-l-4 border-${act.color}-500 p-6 border-y border-r border-slate-100">
+                        <div class="bg-white/90 backdrop-blur rounded-3xl shadow-sm border-l-4 border-${act.color}-500 p-6 border border-white">
                             <div class="flex items-center gap-2 mb-3">
                                 <span class="text-xs font-bold uppercase text-${act.color}-600 bg-${act.color}-50 px-2 py-1 rounded">${act.title}</span>
                             </div>
                             <p class="text-slate-700 mb-6 italic">"${act.text}"</p>
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">Evidência</label>
-                                    <input id="measure-${act.id}" class="input-focus w-full p-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" placeholder="O que comprova a conclusão?">
+                                    <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">${t.label_evidence}</label>
+                                    <input id="measure-${act.id}" class="input-focus w-full p-2 bg-slate-50 border border-slate-200 rounded-lg outline-none" placeholder="${t.place_evid}">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">Prazo</label>
+                                    <label class="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wide">${t.label_date}</label>
                                     <input id="date-${act.id}" type="date" class="input-focus w-full p-2 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-600">
                                 </div>
                             </div>
@@ -458,32 +952,45 @@
             });
 
             if(!hasContent) {
-                container.innerHTML = '<div class="text-center p-8 bg-slate-50 rounded-xl text-slate-400">Nenhuma ação preenchida anteriormente. Volte e preencha.</div>';
+                container.innerHTML = '<div class="text-center p-8 bg-slate-50/50 rounded-xl text-slate-400 border border-slate-200 border-dashed">Nenhuma ação preenchida anteriormente. Volte e preencha.</div>';
             }
         }
 
         function generateReview() {
-            const goal = document.getElementById('input-goal').value;
-            const comp = document.getElementById('input-comp').value;
+            const getVal = (id) => document.getElementById(id)?.value || '';
+            const goal = getVal('input-goal');
+            const comp = getVal('input-comp');
+            const reflectNotes = getVal('input-reflection-notes');
+            const reflectTitle = reflectionChoice === 'current' 
+                ? (currentLang === 'pt' ? 'Fortalecer Posição Atual' : 'Fortalecer Posición Actual') 
+                : (currentLang === 'pt' ? 'Próximo Passo' : 'Próximo Paso');
+            
             const container = document.getElementById('review-content');
+            if(!container) return;
+            
+            const titles = {
+                '70': currentLang === 'pt' ? '70% Experiência' : '70% Experiencia',
+                '20': currentLang === 'pt' ? '20% Relacionamentos' : '20% Relaciones',
+                '10': currentLang === 'pt' ? '10% Educação' : '10% Educación'
+            };
             
             // Build Actions HTML
             const actions = [
-                { id: '70', text: document.getElementById('input-70').value, meas: document.getElementById('measure-70')?.value, date: document.getElementById('date-70')?.value, title: '70% Experiência', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                { id: '20', text: document.getElementById('input-20').value, meas: document.getElementById('measure-20')?.value, date: document.getElementById('date-20')?.value, title: '20% Relacionamentos', color: 'text-amber-600', bg: 'bg-amber-50' },
-                { id: '10', text: document.getElementById('input-10').value, meas: document.getElementById('measure-10')?.value, date: document.getElementById('date-10')?.value, title: '10% Educação', color: 'text-blue-600', bg: 'bg-blue-50' }
+                { id: '70', text: getVal('input-70'), meas: getVal('measure-70'), date: getVal('date-70'), title: titles['70'], color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                { id: '20', text: getVal('input-20'), meas: getVal('measure-20'), date: getVal('date-20'), title: titles['20'], color: 'text-amber-600', bg: 'bg-amber-50' },
+                { id: '10', text: getVal('input-10'), meas: getVal('measure-10'), date: getVal('date-10'), title: titles['10'], color: 'text-blue-600', bg: 'bg-blue-50' }
             ];
 
             let actionsHtml = '';
             actions.forEach(a => {
                 if(a.text) {
                     actionsHtml += `
-                        <div class="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
+                        <div class="bg-slate-50/50 rounded-2xl p-6 border border-slate-200">
                             <h4 class="font-bold ${a.color} mb-2 text-sm uppercase tracking-wide">${a.title}</h4>
                             <p class="text-slate-700 font-medium mb-4">${a.text}</p>
                             <div class="flex flex-wrap gap-4 text-xs text-slate-500 border-t border-slate-200 pt-3">
-                                <div><strong class="text-slate-400 uppercase tracking-wider">Evidência:</strong> <span class="text-slate-700 ml-1">${a.meas || '-'}</span></div>
-                                <div><strong class="text-slate-400 uppercase tracking-wider">Prazo:</strong> <span class="text-slate-700 ml-1">${a.date || '-'}</span></div>
+                                <div><strong class="text-slate-400 uppercase tracking-wider">${TRANSLATIONS[currentLang].label_evidence}:</strong> <span class="text-slate-700 ml-1">${a.meas || '-'}</span></div>
+                                <div><strong class="text-slate-400 uppercase tracking-wider">${TRANSLATIONS[currentLang].label_date}:</strong> <span class="text-slate-700 ml-1">${a.date || '-'}</span></div>
                             </div>
                         </div>
                     `;
@@ -492,9 +999,15 @@
 
             container.innerHTML = `
                 <div class="border-b border-slate-100 pb-6 mb-6">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Objetivo Principal</h3>
-                    <p class="text-2xl font-bold text-slate-800 leading-tight">${goal || '---'}</p>
-                    <div class="mt-3 inline-block bg-indigo-50 px-3 py-1 rounded-lg text-indigo-700 text-sm font-semibold">${comp || '---'}</div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xs font-bold uppercase bg-violet-100 text-violet-700 px-2 py-1 rounded">Foco Definido</span>
+                        <span class="text-sm font-bold text-slate-700">${reflectTitle}</span>
+                    </div>
+                    ${reflectNotes ? `<div class="bg-indigo-50/30 p-5 rounded-xl mb-6 border border-indigo-50"><p class="text-xs font-bold text-indigo-400 uppercase mb-2">Suas Reflexões</p><p class="text-sm text-slate-600 italic">"${reflectNotes}"</p></div>` : ''}
+                    
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Objetivo Principal</h3>
+                    <p class="text-2xl font-bold text-slate-800 leading-tight mb-4">${goal || '---'}</p>
+                    <div class="inline-block bg-fuchsia-50 px-4 py-2 rounded-lg text-fuchsia-700 text-sm font-bold border border-fuchsia-100">${comp || 'Competência não definida'}</div>
                 </div>
                 <div class="space-y-6">${actionsHtml || '<p class="text-slate-400 italic">Sem ações definidas.</p>'}</div>
             `;
@@ -506,47 +1019,58 @@
             const title = document.getElementById('modal-title');
             const content = document.getElementById('modal-content');
             
-            modal.classList.remove('hidden');
+            if(modal) modal.classList.remove('hidden');
             
+            const t = TRANSLATIONS[currentLang];
+
             if (type === 'competencies') {
-                title.innerText = 'Competências Sugeridas';
-                content.innerHTML = `<div class="grid md:grid-cols-2 gap-4">${DATA.competencies.map(c => 
-                    `<button onclick="selectComp('${c}')" class="text-left p-4 rounded-xl border border-slate-100 hover:border-indigo-300 hover:bg-indigo-50 transition-all font-medium text-slate-700 hover:text-indigo-800 w-full">${c}</button>`
+                if(title) title.innerText = t.modal_title_competencies;
+                if(content) content.innerHTML = `<div class="grid md:grid-cols-2 gap-4">${DATA.competencies[currentLang].map(c => 
+                    `<button onclick="selectComp('${c}')" class="text-left p-4 rounded-xl border border-slate-100 hover:border-violet-300 hover:bg-violet-50 transition-all font-medium text-slate-700 hover:text-violet-800 w-full">${c}</button>`
                 ).join('')}</div>`;
             } else {
-                title.innerText = 'Banco de Ideias (PDI Eficaz)';
-                content.innerHTML = `
+                if(title) title.innerText = t.modal_title_ideas;
+                const ideas = DATA.ideas[currentLang];
+                if(content) content.innerHTML = `
                     <div class="grid md:grid-cols-3 gap-8 text-sm">
-                        <div class="space-y-3"><strong class="text-emerald-700 block border-b pb-2">70% Experiência</strong><ul class="list-disc pl-4 space-y-2 text-slate-600">${DATA.ideas.pt.s70.map(i => `<li>${i}</li>`).join('')}</ul></div>
-                        <div class="space-y-3"><strong class="text-amber-700 block border-b pb-2">20% Relacionamentos</strong><ul class="list-disc pl-4 space-y-2 text-slate-600">${DATA.ideas.pt.s20.map(i => `<li>${i}</li>`).join('')}</ul></div>
-                        <div class="space-y-3"><strong class="text-blue-700 block border-b pb-2">10% Educação</strong><ul class="list-disc pl-4 space-y-2 text-slate-600">${DATA.ideas.pt.s10.map(i => `<li>${i}</li>`).join('')}</ul></div>
+                        <div class="space-y-3"><strong class="text-emerald-600 block border-b pb-2 text-lg">70%</strong><ul class="space-y-3 text-slate-600 list-disc pl-4 marker:text-emerald-300">${ideas.s70.map(i => `<li>${i}</li>`).join('')}</ul></div>
+                        <div class="space-y-3"><strong class="text-amber-600 block border-b pb-2 text-lg">20%</strong><ul class="space-y-3 text-slate-600 list-disc pl-4 marker:text-amber-300">${ideas.s20.map(i => `<li>${i}</li>`).join('')}</ul></div>
+                        <div class="space-y-3"><strong class="text-blue-600 block border-b pb-2 text-lg">10%</strong><ul class="space-y-3 text-slate-600 list-disc pl-4 marker:text-blue-300">${ideas.s10.map(i => `<li>${i}</li>`).join('')}</ul></div>
                     </div>
                 `;
             }
         }
 
         function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
+            const modal = document.getElementById('modal');
+            if(modal) modal.classList.add('hidden');
         }
 
         function selectComp(comp) {
-            document.getElementById('input-comp').value = comp;
+            const input = document.getElementById('input-comp');
+            if(input) input.value = comp;
             closeModal();
         }
 
         function exportToWord() {
-            const html = document.getElementById('review-content').innerHTML;
+            hasDownloaded = true; 
+            
+            const contentEl = document.getElementById('review-content');
+            if(!contentEl) return;
+            const html = contentEl.innerHTML;
             const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PDI</title></head><body>";
             const footer = "</body></html>";
             
-            // Simple reconstruction for Word
             const cleanBody = `
-                <h1 style="color:#333">Meu PDI</h1>
-                <p>Data: ${new Date().toLocaleDateString()}</p>
+                <h1 style="color:#333; font-family:sans-serif;">Meu Plano de Carreira</h1>
+                <p style="color:#666; font-family:sans-serif;">Gerado em: ${new Date().toLocaleDateString()}</p>
                 <hr/>
-                ${html.replace(/class=".*?"/g, '')} <!-- Strip classes for basic word rendering -->
+                ${html.replace(/class=".*?"/g, '')} 
                 <hr/>
-                <p>Desenvolvido por Vinicius Carlos</p>
+                <h3 style="font-family:sans-serif;">Próximo passo: Registre no Success Factors</h3>
+                <p style="font-family:sans-serif;"><strong>Home > Objetivos > Metas</strong></p>
+                <br/>
+                <p style="font-size:10pt; color:#999; font-family:sans-serif;">Desenvolvido por Vinicius Carlos</p>
             `;
 
             const sourceHTML = header + cleanBody + footer;
